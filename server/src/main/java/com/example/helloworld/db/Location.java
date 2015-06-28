@@ -7,6 +7,7 @@ public class Location {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     public String somedata;
 
     public Location() {}

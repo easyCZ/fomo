@@ -20,13 +20,13 @@ public class Event {
     private DateTime startTime;
     @Column
     private DateTime endTime;
-    @JoinColumn @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Location location;
-    @ManyToMany @JoinTable(name="event_to_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
     private List<Person> people;
-    @ManyToMany @JoinTable(name="event_to_group", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_group", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groups;
-    @ManyToMany @JoinTable(name="event_to_response", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "response_id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_response", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "response_id"))
     private List<Response> responses;
     @Column
     private String title;

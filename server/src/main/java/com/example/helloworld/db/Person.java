@@ -7,7 +7,9 @@ public class Person {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column
     private String name;
+    @Column
     private String title;
 
     public Person() {}

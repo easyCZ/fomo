@@ -48,7 +48,9 @@ public class EventResourse {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createEvent(Event event) {
-        eventDao.create(event);
+        if (event != null) {
+            eventDao.create(event);
+        }
         return Response.ok().build();
     }
 
@@ -66,6 +68,7 @@ public class EventResourse {
                 .register(JacksonJsonProvider.class);
         Event event = new Event();
         event.setLocation(new Location("some data"));
+        event.setPeople(ImmutableList.of(new Person("Milan", "Prick"), new Person("Mehdi", "Awesome")));
 
         System.out.println(client.target("http://localhost:8080/event")
                 .request()

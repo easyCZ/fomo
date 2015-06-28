@@ -10,7 +10,7 @@ public class Group {
     private long id;
     @Column
     @ManyToMany
-    @JoinTable(name="group_to_people", joinColumns = @JoinColumn(name = "gropu_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @JoinTable(name="group_to_people", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
     private List<Person> people;
 
     public long getId() {
