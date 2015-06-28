@@ -1,4 +1,0 @@
-# fomo
-FOMO App
-
-test
