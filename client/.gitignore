@@ -1,0 +1,17 @@
+# generated
+node_modules/
+bower_components/
+platforms/
+plugins/
+resources/
+www/
+coverage/
+
+protractor/selenium-server-standalone.jar
+protractor/chromedriver
+
+# IDE
+.idea/
+
+# OS
+.DS_Store

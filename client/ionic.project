@@ -1,4 +1,6 @@
 {
-  "name": "FOMO",
-  "app_id": ""
+  "name": "ionic-seed",
+  "app_id": "",
+  "documentRoot": "www",
+  "gulpStartupTasks": ["watch"]
 }
