@@ -4,18 +4,17 @@ defaultName: ${DW_DEFAULT_NAME:-Stranger}
 
 # Database settings.
 database:
-
   # the name of your JDBC driver
   driverClass: org.h2.Driver
-
   # the username
   user: sa
-
   # the password
   password: sa
-
   # the JDBC URL
   url: jdbc:h2:./target/example
+  properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.hbm2ddl.auto: create
 
 # use the simple server factory if you only want to run on a single port
 #server:
@@ -23,6 +22,7 @@ database:
 #  connector:
 #    type: http
 #    port: 8080
+
 
 server:
 #  softNofileLimit: 1000
