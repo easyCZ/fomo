@@ -1,9 +1,12 @@
 package com.example.helloworld.db;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NamedQueries({
@@ -22,12 +25,18 @@ public class Event {
     private DateTime endTime;
     @JoinColumn @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Location location;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private List<Person> people;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_group", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private List<Group> groups;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) @JoinTable(name="event_to_response", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "response_id"))
-    private List<Response> responses;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name="event_to_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
+    @Fetch(FetchMode.SELECT)
+    private Set<Person> people;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="event_to_group", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @Fetch(FetchMode.SELECT)
+    private Set<Group> groups;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="event_to_response", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "response_id"))
+    @Fetch(FetchMode.SELECT)
+    private Set<Response> responses;
     @Column
     private String title;
     @Column
@@ -65,19 +74,19 @@ public class Event {
         this.location = location;
     }
 
-    public List<Person> getPeople() {
+    public Set<Person> getPeople() {
         return people;
     }
 
-    public void setPeople(List<Person> people) {
+    public void setPeople(Set<Person> people) {
         this.people = people;
     }
 
-    public List<Response> getResponses() {
+    public Set<Response> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<Response> responses) {
+    public void setResponses(Set<Response> responses) {
         this.responses = responses;
     }
 

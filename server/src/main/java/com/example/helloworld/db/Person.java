@@ -1,6 +1,7 @@
 package com.example.helloworld.db;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Person {
@@ -11,6 +12,8 @@ public class Person {
     private String name;
     @Column
     private String title;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
+    private Set<Event> events;
 
     public Person() {}
     public Person(String name, String title) {

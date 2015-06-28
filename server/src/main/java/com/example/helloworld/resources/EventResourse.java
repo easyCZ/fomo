@@ -5,11 +5,13 @@ import com.example.helloworld.db.Event;
 import com.example.helloworld.db.EventDao;
 import com.example.helloworld.db.Location;
 import com.example.helloworld.db.Person;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.base.Optional;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableSet;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jersey.caching.CacheControl;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.joda.time.DateTime;
@@ -63,12 +65,18 @@ public class EventResourse {
 
 
     public static void main(String[] args) {
+        ObjectMapper objectMapper = new ObjectMapper()
+                .registerModule(new JodaModule());
+        JacksonJsonProvider provider = new JacksonJsonProvider();
+        provider.setMapper(objectMapper);
         Client client = ClientBuilder.newClient()
+                .register(provider)
                 .register(new LoggingFilter())
                 .register(JacksonJsonProvider.class);
         Event event = new Event();
         event.setLocation(new Location("some data"));
-        event.setPeople(ImmutableList.of(new Person("Milan", "Prick"), new Person("Mehdi", "Awesome")));
+        event.setPeople(ImmutableSet.of(new Person("Milan", "Prick"), new Person("Mehdi", "Awesome")));
+        event.setStartTime(new DateTime());
 
         System.out.println(client.target("http://localhost:8080/event")
                 .request()

@@ -2,6 +2,8 @@ package com.example.helloworld;
 
 import com.example.helloworld.db.*;
 import com.example.helloworld.resources.EventResourse;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -11,6 +13,8 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.SessionFactoryFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
+import java.text.SimpleDateFormat;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
     private static final ImmutableList<Class<?>> hibernateClasses = ImmutableList.of(
@@ -56,17 +60,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 //            }
 //        });
         bootstrap.addBundle(hibernateBundle);
-//        bootstrap.addBundle(new ViewBundle<HelloWorldConfiguration>() {
-//            @Override
-//            public Map<String, Map<String, String>> getViewConfiguration(HelloWorldConfiguration configuration) {
-//                return configuration.getViewRendererConfiguration();
-//            }
-//        });
     }
 
     @Override
     public void run(HelloWorldConfiguration configuration, Environment environment) {
         EventDao eventDao = new EventDao(hibernateBundle.getSessionFactory());
         environment.jersey().register(new EventResourse(eventDao));
+        environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
     }
 }
