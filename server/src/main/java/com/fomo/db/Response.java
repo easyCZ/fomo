@@ -1,4 +1,4 @@
-package com.example.helloworld.db;
+package com.fomo.db;
 
 import javax.persistence.*;
 

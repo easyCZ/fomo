@@ -1,9 +1,8 @@
-package com.example.helloworld;
+package com.fomo;
 
-import com.example.helloworld.db.*;
-import com.example.helloworld.resources.EventResourse;
+import com.fomo.resources.EventResourse;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fomo.db.*;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -16,7 +15,7 @@ import io.dropwizard.setup.Environment;
 
 import java.text.SimpleDateFormat;
 
-public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
+public class FomoApp extends Application<Config> {
     private static final ImmutableList<Class<?>> hibernateClasses = ImmutableList.of(
             Person.class,
             Event.class,
@@ -26,13 +25,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
 
     public static void main(String[] args) throws Exception {
-        new HelloWorldApplication().run(args);
+        new FomoApp().run(args);
     }
 
-    private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
-            new HibernateBundle<HelloWorldConfiguration>(hibernateClasses, new SessionFactoryFactory()) {
+    private final HibernateBundle<Config> hibernateBundle =
+            new HibernateBundle<Config>(hibernateClasses, new SessionFactoryFactory()) {
                 @Override
-                public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
+                public DataSourceFactory getDataSourceFactory(Config configuration) {
                     return configuration.getDataSourceFactory();
                 }
             };
@@ -43,7 +42,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     }
 
     @Override
-    public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
+    public void initialize(Bootstrap<Config> bootstrap) {
         // Enable variable substitution with environment variables
         bootstrap.setConfigurationSourceProvider(
                 new SubstitutingSourceProvider(
@@ -53,9 +52,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         );
 //
 //        bootstrap.addBundle(new AssetsBundle());
-//        bootstrap.addBundle(new MigrationsBundle<HelloWorldConfiguration>() {
+//        bootstrap.addBundle(new MigrationsBundle<Config>() {
 //            @Override
-//            public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
+//            public DataSourceFactory getDataSourceFactory(Config configuration) {
 //                return configuration.getDataSourceFactory();
 //            }
 //        });
@@ -63,7 +62,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     }
 
     @Override
-    public void run(HelloWorldConfiguration configuration, Environment environment) {
+    public void run(Config configuration, Environment environment) {
         EventDao eventDao = new EventDao(hibernateBundle.getSessionFactory());
         environment.jersey().register(new EventResourse(eventDao));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);

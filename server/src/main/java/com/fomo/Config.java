@@ -1,4 +1,4 @@
-package com.example.helloworld;
+package com.fomo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Map;
 
-public class HelloWorldConfiguration extends Configuration {
+public class Config extends Configuration {
     @NotEmpty
     private String template;
 

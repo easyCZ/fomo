@@ -5,10 +5,12 @@
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <artifactId>fomo</artifactId>
-    <version>0.0.1</version>
-    <groupId>com.fomo</groupId>
-    <name>fomo server</name>
+    <artifactId>fomo-server</artifactId>
+    <parent>
+        <artifactId>fomo</artifactId>
+        <version>0.0.1</version>
+        <groupId>com.fomo</groupId>
+    </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -194,7 +196,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.example.helloworld.HelloWorldApplication</mainClass>
+                                    <mainClass>com.fomo.FomoApp</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

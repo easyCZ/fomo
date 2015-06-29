@@ -1,17 +1,16 @@
-package com.example.helloworld.resources;
+package com.fomo.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.example.helloworld.db.Event;
-import com.example.helloworld.db.EventDao;
-import com.example.helloworld.db.Location;
-import com.example.helloworld.db.Person;
+import com.fomo.db.Event;
+import com.fomo.db.EventDao;
+import com.fomo.db.Location;
+import com.fomo.db.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jackson.Jackson;
 import io.dropwizard.jersey.caching.CacheControl;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.joda.time.DateTime;

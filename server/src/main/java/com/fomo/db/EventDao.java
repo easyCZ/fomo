@@ -1,4 +1,4 @@
-package com.example.helloworld.db;
+package com.fomo.db;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
@@ -16,7 +16,7 @@ public class EventDao extends AbstractDAO<Event> {
     }
 
     public List<Event> getAll() {
-        return list(namedQuery("com.example.helloworld.db.Event.findAll"));
+        return list(namedQuery("Event.findAll"));
     }
 
 }

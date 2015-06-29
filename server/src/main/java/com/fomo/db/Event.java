@@ -1,17 +1,16 @@
-package com.example.helloworld.db;
+package com.fomo.db;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @NamedQueries({
         @NamedQuery(
-                name = "com.example.helloworld.db.Event.findAll",
+                name = "Event.findAll",
                 query = "SELECT e FROM Event e"
         )
 })
