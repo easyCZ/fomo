@@ -1,17 +1,14 @@
 package com.fomo.resources;
 
-import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.fomo.db.Event;
 import com.fomo.db.EventDao;
 import com.fomo.db.Location;
 import com.fomo.db.Person;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableSet;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.caching.CacheControl;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -24,24 +21,15 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-@Path("/event")
+@Path("/events")
 @Produces(MediaType.APPLICATION_JSON)
 public class EventResourse {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventResourse.class);
     private final EventDao eventDao;
 
-
     public EventResourse(EventDao eventDao) {
         this.eventDao = eventDao;
-    }
-
-    @GET
-    @Timed(name = "get-requests")
-    @CacheControl(maxAge = 1, maxAgeUnit = TimeUnit.DAYS)
-    public String sayHello(@QueryParam("name") Optional<String> name) {
-        return "hello world";
     }
 
     @POST
@@ -53,6 +41,17 @@ public class EventResourse {
             eventDao.create(event);
         }
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @UnitOfWork
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEvent(@PathParam("id") long id) {
+        if (id > 0) {
+            return Response.ok(eventDao.get(id)).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @GET
@@ -77,7 +76,7 @@ public class EventResourse {
         event.setPeople(ImmutableSet.of(new Person("Milan", "Prick"), new Person("Mehdi", "Awesome")));
         event.setStartTime(new DateTime());
 
-        System.out.println(client.target("http://localhost:8080/event")
+        System.out.println(client.target("http://localhost:8080/api/events")
                 .request()
                 .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE)));
     }

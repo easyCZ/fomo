@@ -19,4 +19,7 @@ public class EventDao extends AbstractDAO<Event> {
         return list(namedQuery("Event.findAll"));
     }
 
+    public Event get(long id) {
+        return super.get(Long.valueOf(id));
+    }
 }
