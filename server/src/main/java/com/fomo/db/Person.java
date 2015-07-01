@@ -18,8 +18,6 @@ public class Person {
     private String title;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
     private Set<Event> events;
-//    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
-//    private Set<Group> groups;
 
     public Person() {}
     public Person(String name, String title) {
@@ -50,12 +48,4 @@ public class Person {
     public void setEvents(Set<Event> events) {
         this.events = events;
     }
-
-//    public Set<Group> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(Set<Group> groups) {
-//        this.groups = groups;
-//    }
 }

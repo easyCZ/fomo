@@ -34,12 +34,6 @@ public class Event {
     @Fetch(FetchMode.SELECT)
     private Set<Person> people;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="event_to_group",
-            joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "group_id", nullable = false, updatable = false))
-    @Fetch(FetchMode.SELECT)
-    private Set<Group> groups;
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="event_to_response",
             joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "response_id", nullable = false, updatable = false))
