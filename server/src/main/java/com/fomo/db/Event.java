@@ -33,7 +33,7 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "person_id", nullable = false, updatable = false))
     @Fetch(FetchMode.SELECT)
     private Set<Person> people;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="event_to_response",
             joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "response_id", nullable = false, updatable = false))

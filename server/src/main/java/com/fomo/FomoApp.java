@@ -3,6 +3,8 @@ package com.fomo;
 import com.fomo.resources.EventResourse;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fomo.db.*;
+import com.fomo.resources.GroupResource;
+import com.fomo.resources.PersonResource;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -63,8 +65,9 @@ public class FomoApp extends Application<Config> {
 
     @Override
     public void run(Config configuration, Environment environment) {
-        EventDao eventDao = new EventDao(hibernateBundle.getSessionFactory());
-        environment.jersey().register(new EventResourse(eventDao));
+        environment.jersey().register(new EventResourse(new EventDao(hibernateBundle.getSessionFactory())));
+        environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
+        environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
     }
