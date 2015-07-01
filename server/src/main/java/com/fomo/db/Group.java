@@ -1,9 +1,13 @@
 package com.fomo.db;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

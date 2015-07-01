@@ -9,6 +9,7 @@ import com.fomo.db.Location;
 import com.fomo.db.Person;
 import com.google.common.collect.ImmutableSet;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -20,6 +21,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Path("/events")
@@ -38,9 +41,9 @@ public class EventResourse {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createEvent(Event event) {
         if (event != null) {
-            eventDao.create(event);
+            return Response.ok(eventDao.create(event)).build();
         }
-        return Response.ok().build();
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @GET
@@ -62,7 +65,7 @@ public class EventResourse {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule());
         JacksonJsonProvider provider = new JacksonJsonProvider();
@@ -76,8 +79,9 @@ public class EventResourse {
         event.setPeople(ImmutableSet.of(new Person("Milan", "Prick"), new Person("Mehdi", "Awesome")));
         event.setStartTime(new DateTime());
 
-        System.out.println(client.target("http://localhost:8080/api/events")
+        Response r = client.target("http://localhost:8080/api/events")
                 .request()
-                .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE)));
+                .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE));
+        System.out.println(IOUtils.toString((InputStream) r.getEntity()));
     }
 }
