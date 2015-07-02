@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class TestClient {
-    @Test
+//    @Test
     public void createEvent() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule());
@@ -42,13 +42,13 @@ public class TestClient {
         event.setPeople(ImmutableSet.of(person1, person2));
         event.setStartTime(new DateTime());
 
-        Response r = client.target("http://localhost:8080/api/events")
+        Response r = client.target("http://fomo-london.rhcloud.com/api/events")
                 .request()
                 .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE));
         System.out.println(IOUtils.toString((InputStream) r.getEntity()));
     }
 
-    @Test
+//    @Test
     public void createGroup() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule());
@@ -64,7 +64,7 @@ public class TestClient {
         Person person2 = new Person("Mehdi", "Awesome");
         group.setPeople(ImmutableSet.of(person1, person2));
 
-        Response r = client.target("http://localhost:8080/api/groups")
+        Response r = client.target("http://fomo-london.rhcloud.com/api/groups")
                 .request()
                 .post(Entity.entity(group, MediaType.APPLICATION_JSON_TYPE));
         System.out.println(IOUtils.toString((InputStream) r.getEntity()));
