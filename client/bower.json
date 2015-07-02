@@ -7,5 +7,10 @@
   },
   "resolutions": {
     "angular": "1.4.1"
+  },
+  "dependencies": {
+    "ngOpenFB": "*",
+    "restangular": "~1.5.1",
+    "angular-google-maps": "~2.1.5"
   }
 }

@@ -1,0 +1,25 @@
+.EventDetail {
+
+    .scroll {
+        height: 100%;
+    }
+
+    .EventDetail-UserImage {
+        border-radius: 100%;
+        position: absolute;
+        max-height: 10vh;
+        top: 15vh;
+    }
+
+    img {
+        max-height: 20vh;
+    }
+
+    .EventDetail-Info {
+        font-size: 0.8em;
+        color: grey;
+    }
+
+}
+
+@import './location/EventLocation.scss';

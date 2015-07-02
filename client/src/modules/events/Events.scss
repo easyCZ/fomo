@@ -1,0 +1,11 @@
+.Events {
+
+    .scroll {
+        height: 100%;
+    }
+
+    @import './list/EventList.scss';
+
+}
+
+@import './detail/EventDetail.scss';

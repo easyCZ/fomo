@@ -1,8 +1,8 @@
-angular.module("starter.config", [])
+angular.module("fomo.config", [])
 
 .constant("config", {
-	"configName": "local",
-	"apiURL": "http://localhost:8000/",
+	"configName": "dev",
+	"apiURL": "http://fomo-london.rhcloud.com/api/",
 	"apiVersion": "1"
 })
 

@@ -1,0 +1,32 @@
+<ion-view view-title="Event Detail" class="EventDetail">
+  <ion-content class="">
+
+    <ion-nav-view></ion-nav-view>
+
+    <div class="tabs-striped tabs-color-assertive">
+    <div class="tabs">
+      <a
+        class="tab-item"
+        ui-sref-active="active"
+        ui-sref="events.detail.overview({ eventId: 1 })">
+        <i class="icon ion-calendar"></i>
+        Event Details
+      </a>
+      <a
+        class="tab-item"
+        ui-sref-active="active"
+        ui-sref="events.detail.location({ eventId: 1 })">
+        <i class="icon ion-location"></i>
+        Location
+      </a>
+      <a
+        class="tab-item"
+        ui-sref-active="active"
+        ui-sref="events.detail.people({ eventId: 1 })">
+        <i class="icon ion-person-stalker"></i>
+        People
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>

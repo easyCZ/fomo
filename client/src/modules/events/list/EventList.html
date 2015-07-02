@@ -1,0 +1,35 @@
+<!-- <ion-spinner icon="crescent"></ion-spinner> -->
+
+<ion-content class="EventList">
+
+    <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="eventsCtrl.update()">
+    </ion-refresher>
+
+    <ion-list can-swipe="true">
+        <ion-item
+            ng-repeat="item in eventsCtrl.events"
+            class="item item-avatar"
+            ui-sref="events.detail.overview({eventId: item.id})">
+
+            <img ng-src="{{ item.img }}">
+            <h2>{{item.title}}</h2>
+            <p>{{ item.location }}</p>
+
+            <ion-option-button
+                class="button-balanced"
+                ng-click="share(item)">
+               <a class="button button-icon icon ion-checkmark-round"></a>
+            </ion-option-button>
+
+            <ion-option-button
+                class="button-assertive"
+                ng-click="edit(item)">
+               <a class="button button-icon icon ion-close-round"></a>
+            </ion-option-button>
+
+          </ion-item>
+
+    </ion-list>
+</ion-content>

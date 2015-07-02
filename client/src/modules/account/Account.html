@@ -1,9 +1,27 @@
-<ion-view view-title="Account">
+<ion-view view-title="Start an Event">
     <ion-content>
-        <ion-list>
-            <ion-toggle  ng-model="account.settings.enableFriends">
-                Enable Friends
-            </ion-toggle>
-        </ion-list>
+
+        <div class="list">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Title</span>
+            <input ng-model="account.newEvent.title" type="text" placeholder="Title of the event">
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Description</span>
+            <input ng-model="account.newEvent.description" type="text" placeholder="What is the event about">
+          </label>
+
+
+
+
+        </div>
+
+        <button
+            ng-click="account.submit(account.newEvent)"
+            class="button button-block button-positive">
+          Submit
+        </button>
+
+
     </ion-content>
 </ion-view>
