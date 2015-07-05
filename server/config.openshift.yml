@@ -16,8 +16,9 @@ database:
       hibernate.hbm2ddl.auto: create
 server:
   type: simple
-  applicationContextPath: /api
+  applicationContextPath: /
   adminContextPath: /admin
+  rootPath: /api/*
   connector:
     type: http
     port: @OPENSHIFT_DIY_PORT@
