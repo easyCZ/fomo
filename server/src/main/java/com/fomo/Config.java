@@ -12,9 +12,6 @@ import java.util.Map;
 
 public class Config extends Configuration {
     @NotEmpty
-    private String template;
-
-    @NotEmpty
     private String defaultName = "Stranger";
 
     @Valid
@@ -23,16 +20,6 @@ public class Config extends Configuration {
     
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
-
-    @JsonProperty
-    public String getTemplate() {
-        return template;
-    }
-
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
 
     @JsonProperty
     public String getDefaultName() {

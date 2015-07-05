@@ -1,21 +1,21 @@
 template: Hello, %s!
 
 defaultName: ${DW_DEFAULT_NAME:-Stranger}
-
 # Database settings.
 database:
-  # the name of your JDBC driver
   driverClass: org.h2.Driver
-  # the username
   user: sa
-  # the password
   password: sa
-  # the JDBC URL
   url: jdbc:h2:./target/example
+# For when we connect it up with Postgres
+#      Root User: adminfrjkfs1
+#      Root Password: BV2MdwpFBSu4
+#      Database Name: fomo
+#
+#   Connection URL: postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT
   properties:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
       hibernate.hbm2ddl.auto: create
-
 server:
   type: simple
   applicationContextPath: /api
@@ -25,20 +25,11 @@ server:
     port: @OPENSHIFT_DIY_PORT@
     bindHost: @OPENSHIFT_DIY_IP@
 
-# Logging settings.
 logging:
-
-  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
   level: INFO
-
-  # Logger-specific levels.
   loggers:
-
-    # Sets the level for 'com.example.app' to DEBUG.
     com.example.app: DEBUG
-
     org.hibernate.SQL: ALL
-
   appenders:
     - type: console
     - type: file

@@ -7,6 +7,7 @@ import com.fomo.resources.GroupResource;
 import com.fomo.resources.PersonResource;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
@@ -53,7 +54,7 @@ public class FomoApp extends Application<Config> {
                 )
         );
 //
-//        bootstrap.addBundle(new AssetsBundle());
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "assets"));
 //        bootstrap.addBundle(new MigrationsBundle<Config>() {
 //            @Override
 //            public DataSourceFactory getDataSourceFactory(Config configuration) {
