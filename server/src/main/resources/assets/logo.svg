@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="logo.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -84,18 +84,14 @@
              inkscape:connector-curvature="0"
              sodipodi:nodetypes="cccsccccccccccsccsssssssccccc" />
         </g>
-        <text
-           xml:space="preserve"
+        <g
            style="font-size:36.80696487px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Technique BRK;-inkscape-font-specification:Technique BRK"
-           x="148.1499"
-           y="88.69725"
-           id="text3119"
-           sodipodi:linespacing="125%"><tspan
-             sodipodi:role="line"
-             id="tspan3121"
-             x="148.1499"
-             y="88.69725"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Mishmash BRK;-inkscape-font-specification:Mishmash BRK">M</tspan></text>
+           id="text3119">
+          <path
+             d="m 173.76755,63.11641 c 0.51527,0.196329 0.90788,0.515322 1.17782,0.956981 0.29443,0.441708 0.44166,0.920198 0.44169,1.435471 l 0,20.611901 c -3e-5,0.736141 -0.24541,1.34959 -0.73614,1.840348 -0.49079,0.49076 -1.10424,0.736139 -1.84035,0.736139 -0.73616,0 -1.34961,-0.245379 -1.84035,-0.736139 -0.49078,-0.490758 -0.73616,-1.104207 -0.73614,-1.840348 l 0,-14.42833 -5.92592,5.925921 c -0.51531,0.515308 -1.11649,0.772957 -1.80354,0.772946 -0.68708,1.1e-5 -1.28826,-0.257638 -1.80354,-0.772946 l -5.92592,-5.925921 0,14.42833 c -1e-5,0.736141 -0.24539,1.34959 -0.73614,1.840348 -0.49077,0.49076 -1.10422,0.736139 -1.84035,0.736139 -0.73614,0 -1.34959,-0.245379 -1.84035,-0.736139 -0.49076,-0.490758 -0.73614,-1.104207 -0.73614,-1.840348 l 0,-20.611901 c 0,-0.515273 0.13496,-0.993763 0.40488,-1.435471 0.29445,-0.441659 0.69933,-0.760652 1.21463,-0.956981 0.49075,-0.196278 0.98151,-0.245354 1.47228,-0.147228 0.51529,0.09818 0.9447,0.343557 1.28824,0.736139 l 8.50241,8.502409 8.50241,-8.502409 c 0.34351,-0.392582 0.76065,-0.637962 1.25143,-0.736139 0.51528,-0.09813 1.01831,-0.04905 1.50909,0.147228"
+             style="font-family:Mishmash BRK;-inkscape-font-specification:Mishmash BRK"
+             id="path3052" />
+        </g>
       </g>
     </g>
   </g>
