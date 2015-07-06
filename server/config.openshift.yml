@@ -4,7 +4,7 @@ database:
   driverClass: org.postgresql.Driver
   user: adminfrjkfs1
   password: BV2MdwpFBSu4
-  url: postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT:fomo
+  url: postgresql://@OPENSHIFT_POSTGRESQL_DB_HOST@:@OPENSHIFT_POSTGRESQL_DB_PORT@:fomo
   properties:
     hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate.hbm2ddl.auto: create-drop
