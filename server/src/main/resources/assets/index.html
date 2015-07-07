@@ -8,7 +8,20 @@
     <title>FOMO</title>
 </head>
 <body>
-    <div class="white-box"><img class="logo" src="logo.svg"></div>
+    <div class="white-box">
+        <img id="png-logo" class="logo" src="logo.png">
+        <img id="svg-logo" class="logo no-svg" src="logo.svg">
+    </div>
     <div class="coloured-box"><div class="coming-soon-text">Coming soon...</div></div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    if (!Modernizr.svg) {
+        $('png-logo').addClass('no-svg');
+        $('svg-logo').removeClass('no-svg');
+    }
+});
+</script>
 </body>
 </html>

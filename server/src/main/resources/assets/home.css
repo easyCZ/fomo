@@ -1,18 +1,19 @@
 html, body {
     margin: 0;
     height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 .white-box {
-    flex: 1;
+    height: 33%;
     position: relative;
 }
 
+body .no-svg {
+    display: none;
+}
 .coloured-box {
     background-color: rgb(243, 164, 40);
-    flex: 2;
+    height: 67%;
     width: 100%;
     color: white;
 }
