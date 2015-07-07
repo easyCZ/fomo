@@ -6,7 +6,7 @@
             people: '='
         },
         templateUrl: 'modules/people/list/PeopleList.html',
-        controller: 'PeopleListController as peopleCtrl'
+        controller: 'PeopleListController'
 
     };
 

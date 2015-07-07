@@ -1,9 +1,14 @@
-<div class="list">
+<ion-scroll style="max-height: 80vh;">
+    <div class="list">
 
-    <a class="item item-avatar" href="#">
-        <img src="venkman.jpg">
-        <h2>Venkman</h2>
-        <p>Back off, man. I'm a scientist.</p>
-    </a>
+        <a class="item item-avatar" href="#" ng-repeat="person in people">
+            <img ng-class="{
+                'attending': person.attending,
+                'not-attending': !person.attending
+            }" ng-src="{{ person.img }}">
+            <h2>{{ person.name }}</h2>
+            <p>{{ person.response }}</p>
+        </a>
 
-</div>
+    </div>
+</ion-scroll>
