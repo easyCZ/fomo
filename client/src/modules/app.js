@@ -22,7 +22,8 @@
   let dependencies = [
     'ionic',
     'fomo.events',
-    'fomo.config'
+    'fomo.config',
+    'fomo.login'
   ];
 
 
