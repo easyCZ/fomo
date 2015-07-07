@@ -8,10 +8,16 @@
 
     class EventListController {
 
-        constructor(Event, $scope, $log) {
+        constructor(Event, $scope, $log, $openFB) {
             this.Event = Event;
             this.$log = $log;
             this.$scope = $scope;
+
+            $openFB.api({
+                path: '/me/friends'
+            }, (error, result) => {
+                console.log('friends', error, result);
+            })
 
             this.swipable = true;
 
@@ -63,7 +69,7 @@
 
     }
 
-    EventListController.$inject = ['Event', '$scope', '$log'];
+    EventListController.$inject = ['Event', '$scope', '$log', '$openFB'];
 
 
     angular

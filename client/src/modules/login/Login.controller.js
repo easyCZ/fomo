@@ -8,7 +8,7 @@
 
         login() {
             this.$openFB.login({
-                scope: 'email'
+                scope: 'email,user_friends'
             }).then((response) => {
                 console.log('response', response);
                 if (response.status === 'connected') {
