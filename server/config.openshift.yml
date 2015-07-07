@@ -1,20 +1,13 @@
 defaultName: ${DW_DEFAULT_NAME:-Stranger}
 # Database settings.
 database:
-  driverClass: org.h2.Driver
-  user: sa
-  password: sa
-  url: jdbc:h2:./target/example
-  
-# For when we connect it up with Postgres
-#      Root User: adminfrjkfs1
-#      Root Password: BV2MdwpFBSu4
-#      Database Name: fomo
-#
-#   Connection URL: postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT
+  driverClass: org.postgresql.Driver
+  user: adminfrjkfs1
+  password: BV2MdwpFBSu4
+  url: jdbc:postgresql://@OPENSHIFT_POSTGRESQL_DB_HOST@:@OPENSHIFT_POSTGRESQL_DB_PORT@/fomo
   properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-      hibernate.hbm2ddl.auto: create
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.hbm2ddl.auto: create-drop
 server:
   type: simple
   applicationContextPath: /
