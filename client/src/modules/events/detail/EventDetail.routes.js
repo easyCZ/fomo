@@ -22,14 +22,16 @@
 
       .state('events.detail.people', {
         url: '/people',
-        templateUrl: 'modules/events/detail/EventDetail.html'
+        templateUrl: 'modules/events/detail/people/EventPeople.html',
+        controller: 'EventPeopleController as eventPeopleCtrl'
       })
   };
 
   EventsRoute.$inject = ['$stateProvider'];
   let dependencies = [
     'ionic',
-    'fomo.events.detail.location'
+    'fomo.events.detail.location',
+    'fomo.events.detail.people'
   ];
 
   angular

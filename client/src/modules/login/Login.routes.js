@@ -7,7 +7,12 @@
             .state('login', {
                 url: '/login',
                 templateUrl: 'modules/login/Login.html',
-                controller: 'LoginController as loginCtrl'
+                controller: 'LoginController as loginCtrl',
+                resolve: {
+                    RedirectState: ['$stateParams', ($stateParams) => {
+                        return $stateParams.redirect;
+                    }]
+                }
             });
 
     };

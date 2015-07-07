@@ -2,26 +2,39 @@
 
     class LoginController {
 
-        constructor($openFB) {
+        constructor($openFB, $state, RedirectState) {
             this.$openFB = $openFB;
+            this.$state = $state;
+            this.RedirectState = RedirectState;
         }
 
         login() {
             this.$openFB.login({
                 scope: 'email,user_friends'
-            }).then((response) => {
-                console.log('response', response);
-                if (response.status === 'connected') {
-                    console.log('Facebook login succeeded');
-                    // $scope.closeLogin();
-                } else {
-                    // alert('Facebook login failed');
-                }
-            });
+            }).then(
+                (success) => this.onLoginSuccess(success),
+                (error) => this.onLoginFailure(error)
+            );
         }
 
-    }
-    LoginController.$inject = ['$openFB']
+        onLoginSuccess(user) {
+            console.log('Logged into FB', user);
+
+            return this.RedirectState
+                ? this.$state.go(this.RedirectState)
+                : this.$state.go('events.list');
+        }
+
+        onLoginFailure(error) {
+            console.error('Failed to login to FB', error);
+        }
+
+    };
+    LoginController.$inject = [
+        '$openFB',
+        '$state',
+        'RedirectState'
+    ];
 
     angular
         .module('fomo.login.LoginController', [])
