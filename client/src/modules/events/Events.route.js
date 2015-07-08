@@ -24,7 +24,12 @@
       .state('events.create', {
         url: '/create',
         templateUrl: 'modules/events/create/CreateEvent.html',
-        // controller: 'ChatDetailController as chat'
+        resolve: {
+          NewEvent: ['Event', (Event) => {
+            return Event.one();
+          }]
+        },
+        controller: 'CreateEventController as create'
       })
 
       // .state('events.detail', {

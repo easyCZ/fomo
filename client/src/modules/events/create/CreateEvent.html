@@ -4,11 +4,65 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{chat.chat.name}}">
-  <ion-content class="padding">
+<ion-view view-title="Create Event">
+  <ion-content>
 
-    <p>
-      {{chat.chat.lastText}}
-    </p>
+
+    <div class="list">
+        <label class="item item-input">
+            <input
+                type="text"
+                placeholder="Event Title"
+                ng-model="create.NewEvent.title">
+        </label>
+        <label class="item item-input">
+            <input
+                type="text"
+                placeholder="Location"
+                ng-model="create.NewEvent.location">
+        </label>
+
+                <label class="item item-input item-select">
+            <div class="input-label">
+                Day
+            </div>
+            <select ng-bind="create.NewEvent.meta.day">
+                <option ng-repeat="day in create.days">{{ day }}</option>
+            </select>
+        </label>
+                <label class="item item-input item-select">
+            <div class="input-label">
+                Month
+            </div>
+            <select ng-bind="create.NewEvent.meta.month">
+                <option ng-repeat="day in create.months">{{ day }}</option>
+            </select>
+        </label>
+
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Year
+            </div>
+            <select ng-bind="create.NewEvent.meta.year">
+                <option ng-repeat="day in create.years">{{ day }}</option>
+            </select>
+        </label>
+
+        <label class="item item-input">
+            <textarea
+                placeholder="Description"
+                ng-model="create.NewEvent.description"></textarea>
+        </label>
+    </div>
+
+    <button class="button button-block button-balanced"
+        ng-disable="create.submitting"
+        ng-click="create.submit(create.NewEvent)">
+        Submit
+    </button>
+
+    <div>DEV Payload:</div>
+    <pre>{{ create.NewEvent | json }}</pre>
+
   </ion-content>
 </ion-view>
