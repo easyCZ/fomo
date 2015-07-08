@@ -1,8 +1,8 @@
 package com.fomo;
 
-import com.fomo.resources.EventResourse;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fomo.db.*;
+import com.fomo.resources.EventResourse;
 import com.fomo.resources.GroupResource;
 import com.fomo.resources.PersonResource;
 import com.google.common.collect.ImmutableList;
@@ -15,8 +15,11 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.SessionFactoryFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import javax.servlet.DispatcherType;
 import java.text.SimpleDateFormat;
+import java.util.EnumSet;
 
 public class FomoApp extends Application<Config> {
     private static final ImmutableList<Class<?>> hibernateClasses = ImmutableList.of(
@@ -71,5 +74,9 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
+
+        // TODO: Only allow CORS on local dev
+        environment.servlets().addFilter("cors-filter", CrossOriginFilter.class)
+                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     }
 }

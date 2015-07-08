@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/events")
@@ -25,22 +24,19 @@ public class EventResourse {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createEvent(Event event) {
-        if (event != null) {
-            return Response.ok(eventDao.create(event)).build();
-        }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+    public Event createEvent(Event event) {
+        return eventDao.create(event);
     }
 
     @GET
     @Path("/{id}")
     @UnitOfWork
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEvent(@PathParam("id") long id) {
-        if (id > 0) {
-            return Response.ok(eventDao.get(id)).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
+    public Event getEvent(@PathParam("id") long id) {
+        Event event;
+        if (id > 0)
+            return eventDao.get(id);
+        throw new BadRequestException();
     }
 
     @GET
