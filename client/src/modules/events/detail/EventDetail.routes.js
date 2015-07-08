@@ -27,6 +27,17 @@
       })
   };
 
+
+  let GoogleMapsConfig = (uiGmapGoogleMapApiProvider) => {
+      uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.17',
+        sensor: true,
+        // libraries: 'weather,geometry,visualization'
+      });
+  };
+  GoogleMapsConfig.$inject = ['uiGmapGoogleMapApiProvider'];
+
   EventsRoute.$inject = ['$stateProvider'];
   let dependencies = [
     'ionic',
@@ -37,5 +48,6 @@
   angular
     .module('fomo.events.detail.routes', dependencies)
     .config(EventsRoute)
+    .config(GoogleMapsConfig);
 
 })();

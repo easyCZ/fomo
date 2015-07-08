@@ -3,26 +3,31 @@
 
     class EventLocationController {
 
-        constructor() {
+        constructor(uiGmapGoogleMapApi) {
 
-            console.log('constructed');
-
-            this.map = {
-                center: {
-                    latitude: 45,
-                    longitude: -73
-                },
-                zoom: 8
-            };
+            uiGmapGoogleMapApi.then((maps) => {
+                this.map = {
+                    center: {
+                        latitude: 45,
+                        longitude: -73
+                    },
+                    zoom: 8
+                };
+            });
 
         }
 
     }
 
+    EventLocationController.$inject = [
+        'uiGmapGoogleMapApi'
+    ];
+
 
     angular
         .module('fomo.events.detail.location', [
-            'uiGmapgoogle-maps'
+            'uiGmapgoogle-maps',
+            'fomo.location.map'
         ])
         .controller('EventLocationController', EventLocationController);
 

@@ -1,9 +1,18 @@
 .EventLocation {
 
-    // height: 100%;
+    height: 100%;
+    display: flex;
+    flex: 1 1 600px;
+    flex-direction: column;
+    align-items: stretch;
 
-    // .angular-google-map,
+
     .angular-google-map-container {
-        height: 400px;
+        height: calc(100vh - 88px);
     }
+
+    .gmnoprint img {
+        max-width: none;
+    }
+
 }
