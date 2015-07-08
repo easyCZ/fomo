@@ -44,7 +44,6 @@ public class EventResourse {
     }
 
     @GET
-    @Path("/all")
     @UnitOfWork
     public List<Event> getAllEvents() {
         return eventDao.getAll();
