@@ -7,7 +7,6 @@
 <ion-view view-title="Create Event">
   <ion-content>
 
-
     <div class="list">
         <label class="item item-input">
             <input
@@ -26,16 +25,14 @@
             <div class="input-label">
                 Day
             </div>
-            <select ng-bind="create.NewEvent.meta.day">
-                <option ng-repeat="day in create.days">{{ day }}</option>
+            <select ng-model="create.NewEvent.meta.day" ng-options="day as day for day in create.days   ">
             </select>
         </label>
                 <label class="item item-input item-select">
             <div class="input-label">
                 Month
             </div>
-            <select ng-bind="create.NewEvent.meta.month">
-                <option ng-repeat="day in create.months">{{ day }}</option>
+            <select ng-model="create.NewEvent.meta.month" ng-options="month as month for month in create.months">
             </select>
         </label>
 
@@ -43,9 +40,7 @@
             <div class="input-label">
                 Year
             </div>
-            <select ng-bind="create.NewEvent.meta.year">
-                <option ng-repeat="day in create.years">{{ day }}</option>
-            </select>
+            <select ng-model="create.NewEvent.meta.year" ng-options="year as year for year in create.years"></select>
         </label>
 
         <label class="item item-input">
