@@ -1,30 +1,30 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=JSOGGenerator.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Person {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String name;
-    @Column
-    private String title;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
     private Set<Event> events;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
     private Set<Group> groups;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Set<Response> responses;
 
     public Person() {}
-    public Person(String name, String title) {
+    public Person(String name) {
         this.name = name;
-        this.title = title;
     }
 
     public String getName() {
@@ -33,14 +33,6 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Set<Event> getEvents() {
@@ -57,5 +49,13 @@ public class Person {
 
     public void setGroups(Set<Group> groups) {
         this.groups = groups;
+    }
+
+    public Set<Response> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(Set<Response> responses) {
+        this.responses = responses;
     }
 }

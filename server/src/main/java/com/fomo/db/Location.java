@@ -1,8 +1,12 @@
 package com.fomo.db;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Location {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

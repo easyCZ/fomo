@@ -1,17 +1,16 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=JSOGGenerator.class)
 @Table(name = "group_table")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Group {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

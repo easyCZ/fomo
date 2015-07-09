@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class TestClient {
-//    @Test
+    @Test
     public void createEvent() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule());
@@ -32,23 +32,26 @@ public class TestClient {
                 .register(provider)
                 .register(new LoggingFilter(java.util.logging.Logger.getLogger("test"), true))
                 .register(JacksonJsonProvider.class);
-        Event event = new Event();
-        event.setLocation(new Location("some data"));
-        Person person1 = new Person("Milan", "Prick");
-        Group group = new Group();
-        group.setGroupName("test group");
-        Person person2 = new Person("Mehdi", "Awesome");
-        group.setPeople(ImmutableSet.of(person1, person2));
-        event.setPeople(ImmutableSet.of(person1, person2));
-        event.setStartTime(new DateTime());
 
-        Response r = client.target("http://fomo-london.rhcloud.com/api/events")
-                .request()
-                .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE));
+        Event event = Event.create()
+                        .at(new Location("some data"))
+                        .on(new DateTime())
+                        .with()
+                            .name("Mehdi")
+                            .withResponse()
+                                .going()
+                                .message("WHOOOO")
+                                .build()
+                            .build()
+                        .build();
+
+        Response r = client.target("http://localhost:8080/api/events")
+                                .request()
+                                .post(Entity.entity(event, MediaType.APPLICATION_JSON_TYPE));
         System.out.println(IOUtils.toString((InputStream) r.getEntity()));
     }
 
-//    @Test
+    @Test
     public void createGroup() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule());
@@ -58,13 +61,13 @@ public class TestClient {
                 .register(provider)
                 .register(new LoggingFilter(java.util.logging.Logger.getLogger("test"), true))
                 .register(JacksonJsonProvider.class);
-        Person person1 = new Person("Milan", "Prick");
+        Person person1 = new Person("Milan");
         Group group = new Group();
         group.setGroupName("test group");
-        Person person2 = new Person("Mehdi", "Awesome");
+        Person person2 = new Person("Mehdi");
         group.setPeople(ImmutableSet.of(person1, person2));
 
-        Response r = client.target("http://fomo-london.rhcloud.com/api/groups")
+        Response r = client.target("http://localhost:8080/api/groups")
                 .request()
                 .post(Entity.entity(group, MediaType.APPLICATION_JSON_TYPE));
         System.out.println(IOUtils.toString((InputStream) r.getEntity()));

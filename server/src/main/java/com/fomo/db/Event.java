@@ -1,7 +1,8 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fomo.builders.EventBuilder;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
@@ -16,7 +17,7 @@ import java.util.Set;
                 query = "SELECT e FROM Event e"
         )
 })
-@JsonIdentityInfo(generator=JSOGGenerator.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Event {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +34,7 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "person_id", nullable = false, updatable = false))
     @Fetch(FetchMode.SELECT)
     private Set<Person> people;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name="event_to_response",
-            joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "response_id", nullable = false, updatable = false))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     private Set<Response> responses;
     @Column
@@ -106,5 +104,9 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static EventBuilder create() {
+        return new EventBuilder();
     }
 }
