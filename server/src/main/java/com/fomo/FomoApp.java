@@ -74,8 +74,6 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-//        Could do this, but this doesn't fix it properly!! ARGH!
-        environment.getObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
 
         // TODO: Only allow CORS on local dev
