@@ -16,12 +16,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(
-                name = "Event.findAll",
-                query = "SELECT e FROM Event e"
-        )
-})
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Event {
     @Id @Column

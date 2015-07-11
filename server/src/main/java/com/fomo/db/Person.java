@@ -21,6 +21,8 @@ public class Person {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn
     private Set<Response> responses;
+    @Column
+    private String fbId;
 
     public Person() {}
     public Person(String name) {
@@ -57,5 +59,13 @@ public class Person {
 
     public void setResponses(Set<Response> responses) {
         this.responses = responses;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
     }
 }

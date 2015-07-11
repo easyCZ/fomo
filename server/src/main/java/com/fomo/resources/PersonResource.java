@@ -27,37 +27,4 @@ public class PersonResource {
         }
         return Response.ok().build();
     }
-
-    @GET
-    @Path("/{id}")
-    @UnitOfWork
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getEvent(@PathParam("id") long id) {
-        if (id > 0) {
-            return Response.ok(dao.get(id)).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-    @GET
-    @Path("/{id}/events")
-    @UnitOfWork
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getEventsFor(@PathParam("id") long id) {
-        if (id > 0) {
-            return Response.ok(dao.get(id).getEvents()).build();
-        }
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
-//    @GET
-//    @Path("/{id}/events")
-//    @UnitOfWork
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getGroupsFor(@PathParam("id") long id) {
-//        if (id > 0) {
-//            return Response.ok(dao.get(id).getGroups()).build();
-//        }
-//        return Response.status(Response.Status.NOT_FOUND).build();
-//    }
 }

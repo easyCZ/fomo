@@ -1,5 +1,6 @@
 package com.fomo.db.dao;
 
+import com.fomo.auth.FbUser;
 import com.fomo.db.Event;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
@@ -17,8 +18,8 @@ public class EventDao extends AbstractDAO<Event> {
         return persist(event);
     }
 
-    public List<Event> getAll() {
-        return list(namedQuery("Event.findAll"));
+    public List<Event> getAll(FbUser user) {
+        return list(currentSession().createQuery("from Event"));
     }
 
     public Event get(long id) {

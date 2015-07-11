@@ -23,10 +23,8 @@ public class HitLocalTest {
     @Test
     public void main() throws IOException {
         Person test = new Person();
-        test.setResponses(Sets.<Response>newHashSet());
-        Response response = new Response();
-        response.setResponder(test);
-        test.getResponses().add(response);
+        test.setName("Mehdi");
+        test.setFbId("10100878053552372");
 
         ObjectMapper objectMapper = new ObjectMapper()
                 .registerModule(new JodaModule())
@@ -38,6 +36,7 @@ public class HitLocalTest {
                                     .register(provider);
         javax.ws.rs.core.Response r = client.target("http://localhost:8080/api/people")
                 .request()
+                .cookie("fbAuth", "CAAMlg3wzdhUBAAlk0R7NXCsT9zNRG1In3CmrNBli1ZCronhVXDPitcnrlNIA1XBfH508s973cGYneUowUKItMBuh1gJbzwX9LilwMmIbykQ6SeMKxeQT9H0OfxygDuZB3v9GwIZCygdYZCdLZAHtRG5MoMGDI2OZCI7SY6RHidJocDyPtEYpuszwSGPgGaY1dFfm711kr4cMPoNngnYwNZAluouDxyEeeMZD")
                 .post(Entity.entity(test, MediaType.APPLICATION_JSON_TYPE));
         System.out.println(r.getStatus());
         System.out.println(IOUtils.toString((InputStream) r.getEntity()));

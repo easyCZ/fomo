@@ -1,5 +1,6 @@
 package com.fomo.db.dao;
 
+import com.fomo.auth.FbUser;
 import com.fomo.db.Person;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
@@ -12,7 +13,7 @@ public class PersonDao extends AbstractDAO<Person> {
     public Person create(Person person) {
         return persist(person);
     }
-    public Person get(long id) {
-        return super.get(Long.valueOf(id));
+    public Person get(FbUser id) {
+        return super.uniqueResult(currentSession().createQuery("from Person p where p.fbId = " + id.getId()));
     }
 }

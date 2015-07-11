@@ -2,7 +2,7 @@ package com.fomo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fomo.auth.FbAuthFilter;
 import com.fomo.db.*;
 import com.fomo.db.dao.EventDao;
 import com.fomo.db.dao.GroupDao;
@@ -78,6 +78,7 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new FbAuthFilter());
+        environment.jersey().register(FbAuthFilter.USER_BINDER);
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
@@ -88,7 +89,7 @@ public class FomoApp extends Application<Config> {
 
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
-        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,fb-auth,apiKey");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Cookie");
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }

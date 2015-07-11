@@ -2,11 +2,11 @@
 
     class LoginController {
 
-        constructor($openFB, $state, RedirectState, $cookieStore) {
+        constructor($openFB, $state, RedirectState, $cookies) {
             this.$openFB = $openFB;
             this.$state = $state;
             this.RedirectState = RedirectState;
-            this.cookies = $cookieStore;
+            this.cookies = $cookies;
         }
 
         login() {
@@ -20,7 +20,8 @@
 
         onLoginSuccess(user) {
             console.log('Logged into FB', user);
-            this.cookies.put('fb-auth', user.authResponse.token);
+
+            this.cookies.fbAuth = user.authResponse.token;
             return this.RedirectState
                 ? this.$state.go(this.RedirectState)
                 : this.$state.go('events.list');
@@ -36,7 +37,7 @@
         '$openFB',
         '$state',
         'RedirectState',
-        '$cookieStore'
+        '$cookies'
     ];
 
     angular
