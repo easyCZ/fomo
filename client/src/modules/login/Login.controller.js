@@ -11,6 +11,7 @@
 
         login() {
             this.$openFB.login({
+                // I think we'll want offline_access for a proper native app (gives us a long-lived token)
                 scope: 'email,user_friends'
             }).then(
                 (success) => this.onLoginSuccess(success),
