@@ -1,7 +1,12 @@
 package com.fomo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fomo.db.*;
+import com.fomo.db.dao.EventDao;
+import com.fomo.db.dao.GroupDao;
+import com.fomo.db.dao.PersonDao;
 import com.fomo.resources.EventResourse;
 import com.fomo.resources.GroupResource;
 import com.fomo.resources.PersonResource;
@@ -72,6 +77,7 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
 
         // TODO: Only allow CORS on local dev

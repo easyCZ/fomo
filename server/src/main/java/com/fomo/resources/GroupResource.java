@@ -1,8 +1,7 @@
 package com.fomo.resources;
 
 import com.fomo.db.Group;
-import com.fomo.db.GroupDao;
-import com.fomo.db.Person;
+import com.fomo.db.dao.GroupDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;

@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import io.dropwizard.testing.ConfigOverride;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import org.apache.commons.io.IOUtils;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.junit.*;
@@ -19,6 +20,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.*;
 
@@ -133,5 +135,3 @@ public class IntegrationTest {
         assertEquals(responses.get(1).getMessage(), "I'm boring");
     }
 }
-
-

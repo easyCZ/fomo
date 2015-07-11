@@ -1,5 +1,6 @@
-package com.fomo.db;
+package com.fomo.db.dao;
 
+import com.fomo.db.Person;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 

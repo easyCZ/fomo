@@ -1,7 +1,7 @@
 package com.fomo.resources;
 
 import com.fomo.db.Event;
-import com.fomo.db.EventDao;
+import com.fomo.db.dao.EventDao;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
