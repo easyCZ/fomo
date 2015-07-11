@@ -2,10 +2,11 @@
 
     class LoginController {
 
-        constructor($openFB, $state, RedirectState) {
+        constructor($openFB, $state, RedirectState, $cookieStore) {
             this.$openFB = $openFB;
             this.$state = $state;
             this.RedirectState = RedirectState;
+            this.cookies = $cookieStore;
         }
 
         login() {
@@ -19,7 +20,7 @@
 
         onLoginSuccess(user) {
             console.log('Logged into FB', user);
-
+            this.cookies.put('fb-auth', user.authResponse.token);
             return this.RedirectState
                 ? this.$state.go(this.RedirectState)
                 : this.$state.go('events.list');
@@ -29,15 +30,17 @@
             console.error('Failed to login to FB', error);
         }
 
-    };
+    }
+
     LoginController.$inject = [
         '$openFB',
         '$state',
-        'RedirectState'
+        'RedirectState',
+        '$cookieStore'
     ];
 
     angular
-        .module('fomo.login.LoginController', [])
+        .module('fomo.login.LoginController', ['ngCookies'])
         .controller('LoginController', LoginController)
 
 })();

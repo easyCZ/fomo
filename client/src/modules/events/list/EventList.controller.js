@@ -23,38 +23,7 @@
 
             // this.update();
             this.$log.debug(NAME, 'Initialized.');
-
-            this.events = [
-                {
-                    id: 1,
-                    title: 'Thames Rafting',
-                    description: 'Description 1',
-                    location: 'East Bank, the Thames',
-                    img: 'https://d13yacurqjgara.cloudfront.net/users/1390/avatars/normal/db4c26f5c3acf2c3773790648da8f2af.png?1405438412'
-                },
-                {
-                    id: 2,
-                    title: 'Event 2',
-                    description: 'Description 1',
-                    location: 'East Bank, the Thames',
-                    img: 'https://d13yacurqjgara.cloudfront.net/users/1390/avatars/normal/db4c26f5c3acf2c3773790648da8f2af.png?1405438412'
-
-                },
-                {
-                    id: 3,
-                    title: 'Event 3',
-                    description: 'Description 1',
-                    location: 'East Bank, the Thames',
-                    img: 'https://d13yacurqjgara.cloudfront.net/users/1390/avatars/normal/db4c26f5c3acf2c3773790648da8f2af.png?1405438412'
-                },
-                {
-                    id: 4,
-                    title: 'Event 4',
-                    description: 'Description 1',
-                    location: 'East Bank, the Thames',
-                    img: 'https://d13yacurqjgara.cloudfront.net/users/1390/avatars/normal/db4c26f5c3acf2c3773790648da8f2af.png?1405438412'
-                }
-            ];
+            this.update();
         }
 
         update() {

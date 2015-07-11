@@ -23,6 +23,7 @@ import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import java.text.SimpleDateFormat;
 import java.util.EnumSet;
 
@@ -76,12 +77,19 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new EventResourse(new EventDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
+        environment.jersey().register(new FbAuthFilter());
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
 
         // TODO: Only allow CORS on local dev
-        environment.servlets().addFilter("cors-filter", CrossOriginFilter.class)
-                .addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+        final FilterRegistration.Dynamic cors =
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        // Configure CORS parameters
+        cors.setInitParameter("allowedOrigins", "*");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,fb-auth,apiKey");
+        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
 }

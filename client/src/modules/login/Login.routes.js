@@ -21,7 +21,8 @@
     angular
         .module('fomo.login.routes', [
             'ionic',
-            'fomo.login.LoginController'
+            'fomo.login.LoginController',
+            'ngCookies'
         ])
         .config(LoginRoutes);
 })();

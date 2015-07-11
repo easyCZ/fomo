@@ -2,6 +2,9 @@
 
   let ApiConfig = (RestangularProvider, config) => {
     RestangularProvider.setBaseUrl(config.apiURL);
+    RestangularProvider.setDefaultHttpFields({
+      withCredentials: true
+    });
   };
   ApiConfig.$inject = ['RestangularProvider', 'config'];
 
@@ -23,7 +26,8 @@
     'ionic',
     'fomo.events',
     'fomo.config',
-    'fomo.login'
+    'fomo.login',
+    'ngCookies'
   ];
 
 
