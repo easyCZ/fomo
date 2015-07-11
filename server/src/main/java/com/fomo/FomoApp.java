@@ -1,6 +1,5 @@
 package com.fomo;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fomo.db.*;
 import com.fomo.resources.EventResourse;
@@ -35,7 +34,7 @@ public class FomoApp extends Application<Config> {
         new FomoApp().run(args);
     }
 
-    private final HibernateBundle<Config> hibernateBundle =
+    final HibernateBundle<Config> hibernateBundle =
             new HibernateBundle<Config>(hibernateClasses, new SessionFactoryFactory()) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(Config configuration) {
@@ -57,7 +56,6 @@ public class FomoApp extends Application<Config> {
                         new EnvironmentVariableSubstitutor(false)
                 )
         );
-//
         bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html", "assets"));
 //        bootstrap.addBundle(new MigrationsBundle<Config>() {
 //            @Override

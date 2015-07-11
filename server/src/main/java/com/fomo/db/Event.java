@@ -1,14 +1,19 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fomo.builders.EventBuilder;
+import com.google.common.collect.Lists;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @NamedQueries({
@@ -109,4 +114,32 @@ public class Event {
     public static EventBuilder create() {
         return new EventBuilder();
     }
+
+    @JsonIgnore
+    public List<Person> getPeopleSortedByName() {
+        TreeSet<Person> sorted = new TreeSet<>(personComparator);
+        sorted.addAll(getPeople());
+        return Lists.newArrayList(sorted);
+    }
+
+    @JsonIgnore
+    public List<Response> getResponsesSortedByResponderName() {
+        TreeSet<Response> sorted = new TreeSet<>(responseComparator);
+        sorted.addAll(getResponses());
+        return Lists.newArrayList(sorted);
+    }
+
+    private static final Comparator<Response> responseComparator = new Comparator<Response>() {
+        @Override
+        public int compare(Response o1, Response o2) {
+            return o1.getResponder().getName().compareTo(o2.getResponder().getName());
+        }
+    };
+
+    private static final Comparator<Person> personComparator = new Comparator<Person>() {
+        @Override
+        public int compare(Person o1, Person o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
 }
