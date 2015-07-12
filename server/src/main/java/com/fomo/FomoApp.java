@@ -77,13 +77,11 @@ public class FomoApp extends Application<Config> {
         environment.jersey().register(new EventResourse(new EventDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
         environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
-        environment.jersey().register(new FbAuthFilter());
-        environment.jersey().register(FbAuthFilter.USER_BINDER);
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
 
-        if (configuration.getEnvironment().equals(com.fomo.Environment.DEV)) {
+        if (!configuration.isProd()) {
             // TODO: Only allow CORS on local dev - we should have a better way of doing this. Move it into a class somewhere
             final FilterRegistration.Dynamic cors =
                     environment.servlets().addFilter("CORS", CrossOriginFilter.class);
@@ -93,6 +91,10 @@ public class FomoApp extends Application<Config> {
             cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Cookie");
             cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
             cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+        } else {
+            // TODO: I'm definitely going to regret doing it like this...
+            environment.jersey().register(new FbAuthFilter());
+            environment.jersey().register(FbAuthFilter.USER_BINDER);
         }
     }
 }

@@ -20,8 +20,7 @@ import java.io.InputStream;
 import java.util.logging.Logger;
 
 public class HitLocalTest {
-    @Test
-    public void main() throws IOException {
+    public static void main() throws IOException {
         Person test = new Person();
         test.setName("Mehdi");
         test.setFbId("10100878053552372");

@@ -1,4 +1,4 @@
-defaultName: Stranger
+environment: TEST
 
 database:
   driverClass: org.h2.Driver

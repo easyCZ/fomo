@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class Config extends Configuration {
-    @JsonProperty @NotEmpty
+    @JsonProperty @NotNull
     private String environment = Environment.DEV.name();
 
     @Valid
@@ -21,8 +21,12 @@ public class Config extends Configuration {
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
 
-    public Environment getEnvironment() {
-        return Environment.valueOf(environment);
+    public boolean isDev() {
+        return Environment.valueOf(environment).equals(Environment.DEV);
+    }
+
+    public boolean isProd() {
+        return Environment.valueOf(environment).equals(Environment.DEV);
     }
 
     @JsonProperty("database")
