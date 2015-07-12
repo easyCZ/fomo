@@ -25,6 +25,7 @@ public class Event {
     private DateTime startTime;
     @Column
     private DateTime endTime;
+    // we may want to make this a @ManyToOne, but that can wait..
     @JoinColumn @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Location location;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

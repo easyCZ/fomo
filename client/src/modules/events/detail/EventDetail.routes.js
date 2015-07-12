@@ -11,7 +11,12 @@
 
       .state('events.detail.overview', {
         url: '/overview',
-        templateUrl: 'modules/events/detail/EventDetailOverview.html'
+        templateUrl: 'modules/events/detail/overview/EventDetailOverview.html',
+        controller: 'EventOverviewController',
+        params: {
+          eventId: undefined,
+          event: undefined
+        }
       })
 
       .state('events.detail.location', {
@@ -42,7 +47,8 @@
   let dependencies = [
     'ionic',
     'fomo.events.detail.location',
-    'fomo.events.detail.people'
+    'fomo.events.detail.people',
+    'fomo.events.detail.overview'
   ];
 
   angular

@@ -4,7 +4,6 @@
 
         constructor() {
             this.people = this.generateMockPeople();
-            console.log(this.people);
         }
 
         generateMockPeople(count=10) {

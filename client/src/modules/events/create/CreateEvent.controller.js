@@ -41,6 +41,7 @@
                 // Maybe do something more intelligent here
                 return;
             }
+            _.merge(this.NewEvent, eventForm.newEvent);
 
             let startTime = new Date(this.NewEvent.meta.year, this.NewEvent.meta.month, this.NewEvent.meta.day);
             this.NewEvent.startTime = startTime.getTime();
@@ -55,7 +56,8 @@
         onEventSubmitSuccess(event) {
             this.submitting = false;
             this.$state.go('events.detail.overview', {
-                eventId: event.id
+                eventId: event.id,
+                event: event
             });
         }
 
@@ -67,8 +69,7 @@
 
     CreateEventController.$inject = ['NewEvent', '$state'];
 
-    angular
-        .module('fomo.events.create', [
+    angular.module('fomo.events.create', [
             'fomo.events.Event'
         ])
         .controller('CreateEventController', CreateEventController);

@@ -12,18 +12,18 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    public String somedata;
+    public String name;
 
     public Location() {}
     public Location(String data) {
-        this.somedata = data;
+        this.name = data;
     }
 
-    public String getSomedata() {
-        return somedata;
+    public String getName() {
+        return name;
     }
 
-    public void setSomedata(String somedata) {
-        this.somedata = somedata;
+    public void setName(String name) {
+        this.name = name;
     }
 }

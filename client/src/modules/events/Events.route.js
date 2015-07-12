@@ -6,19 +6,11 @@
         url: '/events',
         abstract: true,
         template: '<ion-nav-view></ion-nav-view>'
-
-        // views: {
-        //   'tab-chats': {
-        //     templateUrl: 'modules/events/Events.html',
-        //     controller: 'ChatsController as chats'
-        //   }
-        // }
       })
 
       .state('events.list', {
         url: '',
-        templateUrl: 'modules/events/Events.html',
-        // controller: 'EventListController as eventsCtrl'
+        templateUrl: 'modules/events/Events.html'
       })
 
       .state('events.create', {
@@ -30,12 +22,7 @@
           }]
         },
         controller: 'CreateEventController as create'
-      })
-
-      // .state('events.detail', {
-      //   url: '/:eventId',
-      //   templateUrl: 'modules/events/detail/EventDetail.html'
-      // });
+      });
   };
 
   EventsRoute.$inject = ['$stateProvider'];
