@@ -2,7 +2,7 @@
 
     class EventListController {
 
-        constructor(Event, $scope, $log, $openFB) {
+        constructor(Event, $scope, $log, $openFB, $timeout) {
             this.Event = Event;
             this.$log = $log;
             this.$scope = $scope;
@@ -14,10 +14,11 @@
             });
 
             this.swipable = true;
-
-            // this.update();
-            this.$log.debug(NAME, 'Initialized.');
             this.update();
+            var that = this;
+            $timeout(()=> {
+                that.showList = true;
+            }, 4000)
         }
 
         update() {
@@ -29,7 +30,7 @@
         }
     }
 
-    EventListController.$inject = ['Event', '$scope', '$log', '$openFB'];
+    EventListController.$inject = ['Event', '$scope', '$log', '$openFB', '$timeout'];
 
     angular.module('fomo.events.list.EventListController', [])
            .controller('EventListController', EventListController);

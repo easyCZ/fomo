@@ -1,7 +1,7 @@
 <!-- <ion-spinner icon="crescent"></ion-spinner> -->
 
 <ion-content class="EventList">
-    <div ng-if="!eventsCtrl.events" class="splash-parent animate-if">
+    <div ng-if="!eventsCtrl.showList" class="splash-parent animate-if">
         <div class="white-box">
             <img id="png-logo" class="logo" src="img/logo.png">
             <img id="svg-logo" class="logo no-svg" src="img/logo.svg">
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div ng-if="eventsCtrl.events">
+    <div ng-if="eventsCtrl.showList">
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="eventsCtrl.update()"> </ion-refresher>
 
         <ion-list can-swipe="true">
