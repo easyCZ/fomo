@@ -35,15 +35,18 @@
             })();
         }
 
-        submit(newEvent) {
+        submit(eventForm) {
             this.submitting = true;
+            if (eventForm.$invalid) {
+                // Maybe do something more intelligent here
+                return;
+            }
 
-            let startTime = new Date(
-                newEvent.meta.year, newEvent.meta.month, newEvent.meta.day);
-            newEvent.startTime = startTime.getTime();
-            delete newEvent.meta;
+            let startTime = new Date(this.NewEvent.meta.year, this.NewEvent.meta.month, this.NewEvent.meta.day);
+            this.NewEvent.startTime = startTime.getTime();
+            delete this.NewEvent.meta;
 
-            newEvent.post().then(
+            this.NewEvent.post().then(
                 (event) => this.onEventSubmitSuccess(event),
                 (err) => this.onEventSubmitError(err)
             );
@@ -59,8 +62,6 @@
         onEventSubmitError(error) {
             this.submitting = false;
         }
-
-
 
     }
 

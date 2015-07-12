@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "ngOpenFB": "*",
+    "jQuery": "*",
     "restangular": "~1.5.1",
     "angular-google-maps": "~2.1.5",
     "lodash": "~3.10.0",

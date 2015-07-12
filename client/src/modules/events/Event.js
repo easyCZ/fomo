@@ -2,7 +2,7 @@
 
     let Event = (Restangular) => {
         return Restangular.service('events');
-    }
+    };
 
     Event.$inject = ['Restangular'];
 

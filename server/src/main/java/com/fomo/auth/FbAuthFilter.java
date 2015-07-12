@@ -1,6 +1,8 @@
 package com.fomo.auth;
 
 import com.google.common.cache.*;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -37,17 +40,25 @@ public class FbAuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         // Handle nulls and
-        String authCookie = requestContext.getCookies().get("fbAuth").getValue();
-        try {
-            FbUser fbUser = userCache.get(authCookie);)
-            requestContext.setProperty(FB_USER_CTX_KEY, fbUser);
-        } catch (Exception e) {
-            log.info("User failed to login for some reason");
-            requestContext.abortWith(
-                    Response.status(Response.Status.UNAUTHORIZED)
-                            .entity("Access denied. Login with facebook.")
-                            .build());
+        Cookie fbAuth = requestContext.getCookies().get("fbAuth");
+        if (fbAuth != null) {
+            try {
+                FbUser fbUser = userCache.get(fbAuth.getValue());
+                requestContext.setProperty(FB_USER_CTX_KEY, fbUser);
+                return; // They've successfully authenticated
+            } catch (Exception e) {
+            }
+            return;
         }
+        log.info("User failed to login for some reason");
+        unauthorized(requestContext);
+    }
+
+    private void unauthorized(ContainerRequestContext requestContext) {
+        requestContext.abortWith(
+                Response.status(Response.Status.UNAUTHORIZED)
+                        .entity(ImmutableMap.of("error","Access denied. Login with facebook."))
+                        .build());
     }
 
     public static class FbUserFactory implements Factory<FbUser> {

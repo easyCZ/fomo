@@ -51,8 +51,16 @@
       });
     })
 
-    .run(['$rootScope', ($rootScope) => {
+    .run(['$rootScope', '$state', 'Restangular', ($rootScope, $state, Restangular) => {
       $rootScope.$on("$stateChangeError", console.log.bind(console));
+      Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
+        if(response.status === 403 || response.status === 401) {
+          // Don't have state object ... can't seem to get it for some reason...
+          $state.go('login');
+          return false; // error handled
+        }
+        return true; // error not handled
+      });
     }]);
 
 })();

@@ -17,7 +17,7 @@
                 path: '/me/friends'
             }, (error, result) => {
                 console.log('friends', error, result);
-            })
+            });
 
             this.swipable = true;
 
@@ -30,7 +30,7 @@
             this.Event.getList().then((events) => {
                 this.events = events
             }, (error) => {
-
+                this.$log(error);
             });
         }
 
