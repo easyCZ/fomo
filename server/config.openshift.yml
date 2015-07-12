@@ -1,4 +1,4 @@
-defaultName: ${DW_DEFAULT_NAME:-Stranger}
+environment: OPENSHIFT
 database:
   driverClass: org.postgresql.Driver
   user: adminfrjkfs1

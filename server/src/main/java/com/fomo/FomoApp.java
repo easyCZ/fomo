@@ -83,14 +83,16 @@ public class FomoApp extends Application<Config> {
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
 
-        // TODO: Only allow CORS on local dev
-        final FilterRegistration.Dynamic cors =
-                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+        if (configuration.getEnvironment().equals(com.fomo.Environment.DEV)) {
+            // TODO: Only allow CORS on local dev - we should have a better way of doing this. Move it into a class somewhere
+            final FilterRegistration.Dynamic cors =
+                    environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
-        // Configure CORS parameters
-        cors.setInitParameter("allowedOrigins", "*");
-        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Cookie");
-        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
-        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+            // Configure CORS parameters
+            cors.setInitParameter("allowedOrigins", "*");
+            cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Cookie");
+            cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+            cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
+        }
     }
 }

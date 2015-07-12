@@ -1,4 +1,5 @@
-defaultName: ${DW_DEFAULT_NAME:-Stranger}
+environment: DEV
+
 database:
   driverClass: org.h2.Driver
   user: sa

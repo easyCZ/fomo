@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.Map;
 
 public class Config extends Configuration {
-    @NotEmpty
-    private String defaultName = "Stranger";
+    @JsonProperty @NotEmpty
+    private String environment = Environment.DEV.name();
 
     @Valid
     @NotNull
@@ -21,14 +21,8 @@ public class Config extends Configuration {
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
 
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String defaultName) {
-        this.defaultName = defaultName;
+    public Environment getEnvironment() {
+        return Environment.valueOf(environment);
     }
 
     @JsonProperty("database")
