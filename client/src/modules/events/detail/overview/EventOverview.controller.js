@@ -7,7 +7,7 @@
             if ($stateParams.event) {
                 $scope.event = $stateParams.event;
             } else {
-                Event.get($stateParams.eventId).then((event) => {
+                Event.one($stateParams.eventId).get().then((event) => {
                         $scope.event = event;
                     }, (error) => {
 

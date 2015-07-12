@@ -1,11 +1,5 @@
 (() => {
 
-    const NAME = '[EventListController]';
-
-    // let getEvents = () => {
-    //     for (var )
-    // }
-
     class EventListController {
 
         constructor(Event, $scope, $log, $openFB) {
@@ -33,17 +27,12 @@
                 this.$log(error);
             });
         }
-
-
-
     }
 
     EventListController.$inject = ['Event', '$scope', '$log', '$openFB'];
 
-
-    angular
-        .module('fomo.events.list.EventListController', [])
-        .controller('EventListController', EventListController);
+    angular.module('fomo.events.list.EventListController', [])
+           .controller('EventListController', EventListController);
 
 
 })();

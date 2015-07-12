@@ -14,8 +14,8 @@
         templateUrl: 'modules/events/detail/overview/EventDetailOverview.html',
         controller: 'EventOverviewController',
         params: {
-          eventId: undefined,
-          event: undefined
+          eventId: 0,
+          event: 0
         }
       })
 
