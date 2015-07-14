@@ -11,7 +11,7 @@
         <label class="item item-input" ng-class="{ 'has-errors' : eventForm.title.$invalid, 'no-errors' : eventForm.title.$valid}">
             <input type="text" name="title" placeholder="Event Title" ng-model="eventForm.newEvent.title" required>
         </label>
-        <label class="item item-input" ng-class="{ 'has-errors' : eventForm.location.name.$invalid, 'no-errors' : eventForm.location.name.$valid}">
+        <label class="item item-input" ng-class="{ 'has-errors' : eventForm.location.$invalid, 'no-errors' : eventForm.location.$valid}">
             <input type="text" name="location" placeholder="Location" ng-model="eventForm.newEvent.location.name" required>
         </label>
         <label class="item item-input item-select" ng-class="{ 'has-errors' : eventForm.day.$invalid, 'no-errors' : eventForm.day.$valid}">

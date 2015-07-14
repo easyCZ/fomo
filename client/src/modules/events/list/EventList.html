@@ -24,8 +24,8 @@
             </div>
             <ion-item ng-repeat="item in eventsCtrl.events" class="item item-avatar" ui-sref="events.detail.overview({eventId: item.id, event: item})">
                 <img ng-src="{{ item.img }}">
-                    <h2>{{item.title}}</h2>
-                    <p>{{ item.location }}</p>
+                    <h2>{{::item.title}}</h2>
+                    <p>{{::item.location.name}}</p>
                 <ion-option-button class="button-balanced" ng-click="share(item)">
                     <a class="button button-icon icon ion-checkmark-round"></a>
                 </ion-option-button>
@@ -35,5 +35,9 @@
                 </ion-option-button>
               </ion-item>
         </ion-list>
+    </div>
+    <div class="error" ng-if="eventsCtrl.error">
+        <img src="img/teardrop.svg">
+        <div>{{eventsCtrl.error}}</div>
     </div>
 </ion-content>

@@ -22,10 +22,11 @@
         }
 
         update() {
+            var self = this;
             this.Event.getList().then((events) => {
-                this.events = events
+                self.events = events
             }, (error) => {
-                this.$log(error);
+                self.error = error;
             });
         }
     }
