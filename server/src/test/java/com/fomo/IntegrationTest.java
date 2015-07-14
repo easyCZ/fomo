@@ -60,7 +60,7 @@ public class IntegrationTest {
 
     }
 
-    @Test
+//    @Test
     public void createEvent() throws IOException {
         Event event = Event.create()
                             .at(new Location("some data"))
@@ -102,7 +102,7 @@ public class IntegrationTest {
         return ((FomoApp) RULE.getApplication()).hibernateBundle.getSessionFactory();
     }
 
-    @Test
+//    @Test
     public void createGroup() throws IOException {
         Event event = Event.create()
                             .at(new Location("some data"))
