@@ -6,10 +6,7 @@
         controller: 'EventListController as eventsCtrl'
     };
 
-    angular
-        .module('fomo.events.list', [
-            'fomo.events.list.EventListController'
-        ])
+    angular.module('fomo.events.list', [ 'fomo.events.list.EventListController' ])
         .directive('eventList', () => EventList);
 
 })();

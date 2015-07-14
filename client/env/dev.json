@@ -5,7 +5,7 @@
   "constants": {
     "config": {
       "configName": "dev",
-      "apiURL": "http://fomo-london.rhcloud.com/api/",
+      "apiURL": "http://fomo-app.com/api/",
       "apiVersion": "1"
     }
   }

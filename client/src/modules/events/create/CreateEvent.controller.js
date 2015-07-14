@@ -2,9 +2,10 @@
 
     class CreateEventController {
 
-        constructor(NewEvent, $state) {
+        constructor(NewEvent, $state, $ionicPlatform) {
             this.NewEvent = NewEvent;
             this.$state = $state;
+            this.$ionicPlatform = $ionicPlatform;
 
             this.days = (() => {
                 for (var i = 1, list = []; i <= 31; i++)
@@ -55,6 +56,10 @@
 
         onEventSubmitSuccess(event) {
             this.submitting = false;
+            this.$ionicPlatform.onHardwareBackButton((e) => {
+                this.$scope.go('events.list');
+                e.stopPropagation();
+            });
             this.$state.go('events.detail.overview', {
                 eventId: event.id,
                 event: event
@@ -67,7 +72,7 @@
 
     }
 
-    CreateEventController.$inject = ['NewEvent', '$state'];
+    CreateEventController.$inject = ['NewEvent', '$state', '$ionicPlatform'];
 
     angular.module('fomo.events.create', [
             'fomo.events.Event'
