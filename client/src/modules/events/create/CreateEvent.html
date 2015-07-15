@@ -26,6 +26,8 @@
             <div class="input-label">Year</div>
             <select ng-model="eventForm.newEvent.meta.year" name="year" ng-options="year as year for year in create.years" required></select>
         </label>
+        <ion-select ng-model="eventForm.friends" label-field="name" provider="create.friends">
+        </ion-select>
 
         <label class="item item-input" ng-class="{ 'has-errors' : eventForm.description.$invalid, 'no-errors' : eventForm.description.$valid}">
             <textarea placeholder="Description" name="description" ng-model="eventForm.newEvent.description" required></textarea>

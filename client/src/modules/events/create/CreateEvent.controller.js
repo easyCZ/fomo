@@ -2,7 +2,7 @@
 
     class CreateEventController {
 
-        constructor(NewEvent, $state, $ionicPlatform) {
+        constructor(NewEvent, $state, $openFB, $ionicPlatform) {
             this.NewEvent = NewEvent;
             this.$state = $state;
             this.$ionicPlatform = $ionicPlatform;
@@ -34,6 +34,14 @@
                     years.push(i);
                 return years;
             })();
+            var self = this;
+            $openFB.api({
+                path: '/me/friends'
+            }, (error, result) => {
+                if (!error) {
+                    self.friends = result.data.data;
+                }
+            });
         }
 
         submit(eventForm) {
@@ -72,10 +80,12 @@
 
     }
 
-    CreateEventController.$inject = ['NewEvent', '$state', '$ionicPlatform'];
+    CreateEventController.$inject = ['NewEvent', '$state', '$openFB', '$ionicPlatform'];
 
     angular.module('fomo.events.create', [
-            'fomo.events.Event'
+            'fomo.events.Event',
+            'ngOpenFB',
+            'fomo.select'
         ])
         .controller('CreateEventController', CreateEventController);
 
