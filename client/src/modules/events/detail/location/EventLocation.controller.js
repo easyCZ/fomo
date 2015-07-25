@@ -26,7 +26,7 @@
 
     angular
         .module('fomo.events.detail.location', [
-            'uiGmapgoogle-maps',
+            'uiGmapgoogle-maps'
         ])
         .controller('EventLocationController', EventLocationController);
 

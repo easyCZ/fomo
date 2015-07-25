@@ -2,21 +2,22 @@ package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Person {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String name;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "people")
     private Set<Event> events;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "people")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "people")
     private Set<Group> groups;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn

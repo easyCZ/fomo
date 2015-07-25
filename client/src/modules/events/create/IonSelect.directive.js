@@ -36,7 +36,7 @@
             + '<div class="optionList padding-left padding-right" ng-show="showList">'
             + '<ion-scroll>'
             + '<ul class="list person-select-list">'
-            + '<li ng-click="select(item)" ng-repeat="item in provider | filter:inputModel">'
+            + '<li ng-click="select(item)" ng-repeat="item in provider | filter:inputModel | ">'
             + '<div class="person-item"><img src="http://graph.facebook.com/{{::item.id}}/picture?type=square"><div>{{::item[labelField]}}</div></div>'
             + '</ul>'
             + '</ion-scroll>'

@@ -12,7 +12,7 @@
       .state('events.detail.overview', {
         url: '/overview',
         templateUrl: 'modules/events/detail/overview/EventDetailOverview.html',
-        controller: 'EventOverviewController',
+        controller: 'EventOverviewController as overviewCtrl',
         params: {
           eventId: 0,
           event: 0
@@ -22,13 +22,13 @@
       .state('events.detail.location', {
         url: '/location',
         templateUrl: 'modules/events/detail/location/EventLocation.html',
-        controller: 'EventLocationController as location'
+        controller: 'EventLocationController as locationCtrl'
       })
 
       .state('events.detail.people', {
         url: '/people',
         templateUrl: 'modules/events/detail/people/EventPeople.html',
-        controller: 'EventPeopleController as eventPeopleCtrl'
+        controller: 'EventPeopleController as peopleCtrl'
       })
   };
 

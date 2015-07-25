@@ -2,11 +2,12 @@ package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Response {
     @Column @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

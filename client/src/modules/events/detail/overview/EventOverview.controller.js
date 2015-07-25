@@ -2,24 +2,22 @@
 
     class EventOverviewController {
 
-        constructor($scope, $stateParams, Event) {
-            console.log("here");
-            if ($stateParams.event) {
-                $scope.event = $stateParams.event;
-            } else {
-                Event.one($stateParams.eventId).get().then((event) => {
-                        $scope.event = event;
-                    }, (error) => {
+        constructor($scope, $stateParams, EventList, $ionicPlatform) {
+            EventList.get($stateParams.eventId).then((e) => {
+                this.event = e;
+                $scope.$apply(); // why is this necessary???
+            });
+            $ionicPlatform.onHardwareBackButton((e) => {
+                this.EventList.getList(); // refresh the list
+                this.$scope.go('events.list');
+                e.stopPropagation();
+            });
 
-                    }
-                );
-
-            }
         }
 
     }
 
-    EventOverviewController.$inject = ['$scope','$stateParams','Event']
+    EventOverviewController.$inject = ['$scope', '$stateParams','EventList', '$ionicPlatform'];
 
     angular.module('fomo.events.detail.overview', [])
            .controller('EventOverviewController', EventOverviewController);

@@ -1,16 +1,19 @@
 <img src="img/golden.png">
 
-<div class="padding">
+<div class="padding" ng-if="overviewCtrl.event === undefined">
+    Loading...
+    {{overviewCtrl.event === undefined}}
+</div>
 
-    <h4>{{::event.title}}</h4>
+<div class="padding" ng-if="overviewCtrl.event">
+
+    <h4>{{::overviewCtrl.event.title}}</h4>
 
     <p class="EventDetail-Info">
-        Jun-18-2015 | 16 People are going
+        Jun-18-2015 | {{::overviewCtrl.event.people.length}} People are invited
     </p>
 
     <p>
-        {{::event.description}}
+        {{::overviewCtrl.event.description}}
     </p>
-
-
 </div>

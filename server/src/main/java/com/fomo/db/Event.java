@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fomo.builders.EventBuilder;
 import com.google.common.collect.Lists;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
@@ -16,7 +17,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator=JSOGGenerator.class)
 public class Event {
     @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

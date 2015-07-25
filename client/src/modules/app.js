@@ -5,6 +5,9 @@
     RestangularProvider.setDefaultHttpFields({
       withCredentials: true
     });
+    RestangularProvider.addResponseInterceptor((data, operation, what, url, response, deferred) => {
+      return angular.copy(JSOG.decode(data));
+    });
   };
   ApiConfig.$inject = ['RestangularProvider', 'config'];
 

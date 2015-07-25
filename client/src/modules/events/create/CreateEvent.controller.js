@@ -72,8 +72,9 @@
         onEventSubmitSuccess(event) {
             this.submitting = false;
             this.$ionicPlatform.onHardwareBackButton((e) => {
-                this.EventList.getList(); // refresh the list
-                this.$scope.go('events.list');
+                this.EventList.getList().then(() => {
+                    this.$scope.go('events.list');
+                }); // refresh the list
                 e.stopPropagation();
             });
             this.$state.go('events.detail.overview', {
