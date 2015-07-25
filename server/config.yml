@@ -22,7 +22,7 @@ server:
 logging:
   level: INFO
   loggers:
-    com.example.app: DEBUG
+    com.example.app: INFO
     org.hibernate.SQL: ALL
   appenders:
     - type: console

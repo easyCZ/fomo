@@ -2,39 +2,30 @@
 
     class EventListController {
 
-        constructor(Event, $scope, $log, $openFB, $timeout) {
-            this.Event = Event;
+        constructor(EventList, $scope, $log, $openFB, $timeout, $state) {
+            this.EventList = EventList;
             this.$log = $log;
             this.$scope = $scope;
 
             $openFB.api({
                 path: '/me/friends'
             }, (error, result) => {
-                console.log('friends', error, result);
+                if (error) {
+                    $state.go('login');
+                }
             });
 
             this.swipable = true;
-            this.update();
+            this.EventList.getList();
             var that = this;
             $timeout(()=> {
                 that.showList = true;
             }, 4000)
         }
-
-        update() {
-            var self = this;
-            this.Event.getList().then((events) => {
-                self.events = events
-            }, (error) => {
-                self.error = error;
-            });
-        }
     }
 
-    EventListController.$inject = ['Event', '$scope', '$log', '$openFB', '$timeout'];
+    EventListController.$inject = ['EventList', '$scope', '$log', '$openFB', '$timeout', '$state'];
 
     angular.module('fomo.events.list.EventListController', [])
            .controller('EventListController', EventListController);
-
-
 })();

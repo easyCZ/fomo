@@ -17,7 +17,7 @@
             template: '<div class="select-container">'
             + '<label class="item item-input item-stacked-label">'
             + '<ul>'
-            + '<li ng-repeat="item in ngModel">'
+            + '<li ng-repeat="item in ngModel" ng-if="ngModel">'
             +   '<div class="person-item">'
             +       '<img src="http://graph.facebook.com/{{::item.id}}/picture?type=square"><div>{{::item[labelField]}}</div>'
             +       '<div><button class="ion-minus-circled button icon button-icon" ng-click="ngModel.splice($index, 1)"></button><div>'

@@ -28,7 +28,7 @@ public class Event {
     // we may want to make this a @ManyToOne, but that can wait..
     @JoinColumn @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Location location;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="event_to_people",
             joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "person_id", nullable = false, updatable = false))

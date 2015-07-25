@@ -2,8 +2,9 @@
 
     class CreateEventController {
 
-        constructor(NewEvent, $state, $openFB, $ionicPlatform) {
+        constructor(NewEvent, EventList, $state, $openFB, $ionicPlatform) {
             this.NewEvent = NewEvent;
+            this.EventList = EventList;
             this.$state = $state;
             this.$ionicPlatform = $ionicPlatform;
 
@@ -50,7 +51,13 @@
                 // Maybe do something more intelligent here
                 return;
             }
+            //TODO: Move all this into a service somewhere
             _.merge(this.NewEvent, eventForm.newEvent);
+
+            this.NewEvent.people.forEach((person) => {
+                person.fbId = person.id;
+                delete person.id; // we only link to fb for now...
+            });
 
             let startTime = new Date(this.NewEvent.meta.year, this.NewEvent.meta.month, this.NewEvent.meta.day);
             this.NewEvent.startTime = startTime.getTime();
@@ -65,6 +72,7 @@
         onEventSubmitSuccess(event) {
             this.submitting = false;
             this.$ionicPlatform.onHardwareBackButton((e) => {
+                this.EventList.getList(); // refresh the list
                 this.$scope.go('events.list');
                 e.stopPropagation();
             });
@@ -80,7 +88,7 @@
 
     }
 
-    CreateEventController.$inject = ['NewEvent', '$state', '$openFB', '$ionicPlatform'];
+    CreateEventController.$inject = ['NewEvent', 'EventList', '$state', '$openFB', '$ionicPlatform'];
 
     angular.module('fomo.events.create', [
             'fomo.events.Event',

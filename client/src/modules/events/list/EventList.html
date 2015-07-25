@@ -14,13 +14,13 @@
     </div>
 
     <div ng-if="eventsCtrl.showList">
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="eventsCtrl.update()"> </ion-refresher>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="eventsCtrl.EventList.getList()"> </ion-refresher>
 
         <ion-list can-swipe="true">
-            <div ng-hide="eventsCtrl.events.length">
+            <div ng-hide="eventsCtrl.EventList.events.length">
                 You ain't got nuttin' to do bro
             </div>
-            <ion-item ng-repeat="item in eventsCtrl.events" class="item item-avatar" ui-sref="events.detail.overview({eventId: item.id, event: item})">
+            <ion-item ng-repeat="item in eventsCtrl.EventList.events" class="item item-avatar" ui-sref="events.detail.overview({eventId: item.id, event: item})">
                 <img ng-src="{{ item.img }}">
                     <h2>{{::item.title}}</h2>
                     <p>{{::item.location.name}}</p>

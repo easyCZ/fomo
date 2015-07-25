@@ -14,6 +14,9 @@ public class PersonDao extends AbstractDAO<Person> {
         return persist(person);
     }
     public Person get(FbUser id) {
-        return super.uniqueResult(currentSession().createQuery("from Person p where p.fbId = " + id.getId()));
+        return get(id.getId());
+    }
+    public Person get(String fbId) {
+        return super.uniqueResult(currentSession().createQuery("from Person p where p.fbId = " + fbId));
     }
 }
