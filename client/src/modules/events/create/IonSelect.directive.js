@@ -1,6 +1,6 @@
 (() => {
     angular.module('fomo.select', [])
-    .directive('ionSelect', function () {
+    .directive('ionSelect', ['$timeout', function ($timeout) {
         'use strict';
         return {
             restrict: 'EAC',
@@ -16,58 +16,53 @@
             replace: false,
             template: '<div class="select-container">'
             + '<label class="item item-input item-stacked-label">'
-            //+ '<span class="input-label">{{label}}</span>'
+            + '<ul>'
+            + '<li ng-repeat="item in ngModel">'
+            +   '<div class="person-item">'
+            +       '<img src="http://graph.facebook.com/{{::item.id}}/picture?type=square"><div>{{::item[labelField]}}</div>'
+            +       '<div><button class="ion-minus-circled button icon button-icon" ng-click="ngModel.splice($index, 1)"></button><div>'
+            + '</div>'
+            + '</li>'
+            + '</ul>'
             + '<div class="item item-input-inset">'
             + '<label class="item-input-wrapper">'
             + '<i class="icon ion-ios7-search placeholder-icon"></i>'
-            + '<input id="filtro" type="search"  ng-model="ngModel" ng-value="ngValue" ng-keydown="onKeyDown()"/>'
+            + '<input type="search" ng-model="inputModel" ng-value="ngValue" ng-keydown="onkeydown()"/>'
             + '</label>'
-            + '<button class="button button-small button-clear" ng-click="open()">'
             + '<i class="icon ion-chevron-down"></i>'
             + '</button>'
             + '</div>'
             + '</label>'
-            + '<div class="optionList padding-left padding-right" ng-show="showHide">'
+            + '<div class="optionList padding-left padding-right" ng-show="showList">'
             + '<ion-scroll>'
-            + '<ul class="list">'
-            + '<li class="item" ng-click="selection(item)" ng-repeat="item in provider | filter:ngModel">{{item[labelField]}}</li>'
+            + '<ul class="list person-select-list">'
+            + '<li ng-click="select(item)" ng-repeat="item in provider | filter:inputModel">'
+            + '<div class="person-item"><img src="http://graph.facebook.com/{{::item.id}}/picture?type=square"><div>{{::item[labelField]}}</div></div>'
             + '</ul>'
             + '</ion-scroll>'
             + '</div>'
             + '</div>'
             ,
-            link: function (scope, element, attrs, ngModel) {
+            link: function (scope, element, attrs, ctrl) {
                 scope.ngValue = scope.ngValue !== undefined ? scope.ngValue : 'item';
+                scope.ngModel = scope.ngModel || [];
 
-                scope.selection = (item) => {
-                    ngModel.$setViewValue(item);
-                    scope.showHide = false;
+                scope.select = (item) => {
+                    scope.ngModel.push(item);
+                    scope.showList = false;
+                    scope.inputModel = "";
                 };
 
                 element.bind('click', function () {
                     element.find('input').focus();
                 });
 
-                scope.open = () => {
-
-                    scope.ngModel = "";
-                    return scope.showHide = !scope.showHide;
+                scope.onkeydown = () => {
+                    $timeout(() => {
+                        scope.showList = !!scope.inputModel;
+                    });
                 };
-
-                scope.onKeyDown = () => {
-                    scope.showHide = true;
-                    // scope.showHide = !!scope.ngModel;
-                    if (!scope.ngModel) {
-                        scope.showHide = false;
-                    }
-                };
-
-                scope.$watch('ngModel', (newValue) => {
-                    if (newValue) {
-                        element.find('input').val(newValue[scope.labelField]);
-                    }
-                });
             }
         };
-    });
+    }]);
 })();
