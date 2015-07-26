@@ -3,6 +3,7 @@ package com.fomo.db.dao;
 import com.fomo.auth.FbUser;
 import com.fomo.db.Person;
 import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 public class PersonDao extends AbstractDAO<Person> {
@@ -17,6 +18,7 @@ public class PersonDao extends AbstractDAO<Person> {
         return get(id.getId());
     }
     public Person get(String fbId) {
-        return super.uniqueResult(currentSession().createQuery("from Person p where p.fbId = " + fbId));
+        Query query = currentSession().createQuery("from Person p where p.fbId = ?");
+        return super.uniqueResult(query.setString(0, fbId));
     }
 }
