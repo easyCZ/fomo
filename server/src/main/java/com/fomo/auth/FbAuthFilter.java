@@ -40,10 +40,10 @@ public class FbAuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         // Handle nulls and
-        Cookie fbAuth = requestContext.getCookies().get("fbAuth");
+        String fbAuth = requestContext.getHeaders().getFirst("fbAuth");
         if (fbAuth != null) {
             try {
-                FbUser fbUser = userCache.get(fbAuth.getValue());
+                FbUser fbUser = userCache.get(fbAuth);
                 requestContext.setProperty(FB_USER_CTX_KEY, fbUser);
                 return; // They've successfully authenticated
             } catch (Exception e) {
