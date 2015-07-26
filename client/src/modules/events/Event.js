@@ -29,7 +29,8 @@
                     var findEvent = (id) => { return _.find(this.events, (e) => {
                         return e.id == id;
                     })};
-                    if (!this.events) {
+                    var event = findEvent(id);
+                    if (!event) {
                         return new Promise((resolve) => {
                             Promise.resolve(self.getList()).then(() => {
                                 resolve(findEvent(id));
@@ -37,7 +38,7 @@
                         });
                     } else {
                         return new Promise((resolve) => {
-                            resolve(findEvent(id));
+                            resolve(event);
                         });
                     }
                 }
