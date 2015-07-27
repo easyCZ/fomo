@@ -6,7 +6,8 @@
       .state('events.detail', {
         abstract: true,
         url: '/:eventId',
-        templateUrl: 'modules/events/detail/EventDetail.html'
+        templateUrl: 'modules/events/detail/EventDetail.html',
+          controller: 'EventDetailController as detailCtrl'
       })
 
       .state('events.detail.overview', {
@@ -37,7 +38,7 @@
       uiGmapGoogleMapApiProvider.configure({
         //    key: 'your api key',
         v: '3.17',
-        sensor: true,
+        sensor: true
         // libraries: 'weather,geometry,visualization'
       });
   };
@@ -46,6 +47,7 @@
   EventsRoute.$inject = ['$stateProvider'];
   let dependencies = [
     'ionic',
+    'fomo.events.detail',
     'fomo.events.detail.location',
     'fomo.events.detail.people',
     'fomo.events.detail.overview'

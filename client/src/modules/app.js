@@ -6,7 +6,7 @@
       withCredentials: true
     });
     RestangularProvider.addResponseInterceptor((data, operation, what, url, response, deferred) => {
-      return angular.copy(JSOG.decode(data));
+      return JSOG.decode(data);
     });
     RestangularProvider.setDefaultHeaders({ fbAuth: () => { return window.localStorage.fbAuth; } });
   };

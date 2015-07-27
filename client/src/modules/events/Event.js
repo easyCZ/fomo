@@ -33,7 +33,8 @@
                     if (!event) {
                         return new Promise((resolve) => {
                             Promise.resolve(self.getList()).then(() => {
-                                resolve(findEvent(id));
+                                var returnEvent = findEvent(id);
+                                resolve(returnEvent);
                             });
                         });
                     } else {
