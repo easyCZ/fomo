@@ -11,8 +11,9 @@
         top: 15vh;
     }
 
-    img {
+    .event-img {
         max-height: 20vh;
+        max-width: none;
     }
 
     .EventDetail-Info {
@@ -20,6 +21,9 @@
         color: grey;
     }
 
-}
+    .angular-google-map, .angular-google-map-container {
+        height: 450px;
+        width: 100%;
+    }
 
-@import './location/EventLocation.scss';
+}

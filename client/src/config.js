@@ -1,8 +1,8 @@
 angular.module("fomo.config", [])
 
 .constant("config", {
-	"configName": "local",
-	"apiURL": "http://localhost:8080/api/",
+	"configName": "dev",
+	"apiURL": "http://fomo-app.com/api/",
 	"apiVersion": "1"
 })
 

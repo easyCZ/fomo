@@ -20,12 +20,6 @@
         }
       })
 
-      .state('events.detail.location', {
-        url: '/location',
-        templateUrl: 'modules/events/detail/location/EventLocation.html',
-        controller: 'EventLocationController as locationCtrl'
-      })
-
       .state('events.detail.people', {
         url: '/people',
         templateUrl: 'modules/events/detail/people/EventPeople.html',
@@ -33,10 +27,9 @@
       })
   };
 
-
   let GoogleMapsConfig = (uiGmapGoogleMapApiProvider) => {
       uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
+        key: 'AIzaSyBPs1HkUn63_ZrexiZnDfKPDzbLbAt8_wo',
         v: '3.17',
         sensor: true
         // libraries: 'weather,geometry,visualization'
@@ -48,7 +41,6 @@
   let dependencies = [
     'ionic',
     'fomo.events.detail',
-    'fomo.events.detail.location',
     'fomo.events.detail.people',
     'fomo.events.detail.overview'
   ];

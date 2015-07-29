@@ -1,9 +1,4 @@
-<img src="img/golden.png">
-
-<!--<div class="padding" ng-if="overviewCtrl.event === undefined">-->
-    <!--Loading...-->
-    <!--{{overviewCtrl.event === undefined}}-->
-<!--</div>-->
+<img class="event-img" src="img/golden.png">
 
 <div class="padding">
 
@@ -16,4 +11,16 @@
     <p>
         {{::overviewCtrl.event.description}}
     </p>
+
+    <div class="map">
+        <ui-gmap-google-map
+                center="overviewCtrl.map.center"
+                draggable="true"
+                id="myGoogleMap"
+                zoom="overviewCtrl.map.zoom"
+                options="overviewCtrl.map.options"
+                control="overviewCtrl.map.control"
+                events="overviewCtrl.map.events">
+        </ui-gmap-google-map>
+    </div>
 </div>
