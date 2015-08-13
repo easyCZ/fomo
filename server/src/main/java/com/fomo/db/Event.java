@@ -28,6 +28,7 @@ public class Event {
     private DateTime endTime;
     // we may want to make this a @ManyToOne, but that can wait..
     @JoinColumn @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
     private Location location;
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="event_to_people",

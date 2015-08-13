@@ -2,7 +2,7 @@
 
     class CreateEventController {
 
-        constructor(NewEvent, EventList, $state, $openFB, $ionicPlatform) {
+        constructor(NewEvent, EventList, $state, $openFB, $ionicPlatform, uiGmapGoogleMapApi) {
             this.NewEvent = NewEvent;
             this.EventList = EventList;
             this.$state = $state;
@@ -43,6 +43,78 @@
                     self.friends = result.data.data;
                 }
             });
+
+            this.searchbox = {
+                template: 'searchbox.tpl.html',
+                    options: {
+                        autocomplete: true,
+                        componentRestrictions: {
+                            country: 'gb'
+                        }
+                },
+                events: {
+                    place_changed: function (autocomplete) {
+                        var place = autocomplete.getPlace();
+                        if (place.address_components) {
+                            self.map.center = {
+                                latitude: place.geometry.location.lat(),
+                                longitude: place.geometry.location.lng()
+                            };
+                            console.log(place);
+
+                            self.map.marker = {
+                                id:0,
+                                coords: {
+                                    latitude: place.geometry.location.lat(),
+                                    longitude: place.geometry.location.lng()
+                                },
+                                place_id: place.place_id,
+                                name: place.name,
+                                options: {
+                                    visible:false
+                                },
+                                templateparameter: place
+                            };
+                        }
+                    }
+                }
+            };
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    self.map.center = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    self.map.marker = {
+                        id: 0,
+                        coords: self.map.center
+                    }
+
+                });
+            }
+
+            uiGmapGoogleMapApi.then((maps) => {
+                this.map = {
+                    options : {
+                        zoomControl:true,
+                        mapTypeControl: true,
+                        streetViewControl: true,
+                        optimized: true
+                    },
+                    maxZoom :15,
+                    zoom : 15,
+                    minZoom : 10,
+                    events: {
+                        click:function() {
+                            $scope.itemSelected = false;
+                        }
+                    },
+                    clusterOptions: {
+                        minimumClusterSize : 10
+                    }
+                };
+            });
         }
 
         submit(eventForm) {
@@ -62,6 +134,13 @@
             let startTime = new Date(this.NewEvent.meta.year, this.NewEvent.meta.month, this.NewEvent.meta.day);
             this.NewEvent.startTime = startTime.getTime();
             delete this.NewEvent.meta;
+            this.NewEvent.location = {
+                place_id: this.map.marker.place_id,
+                formattedAddress: this.map.marker.formatted_address,
+                name: this.map.marker.name,
+                latitude: this.map.marker.coords.latitude,
+                longitude: this.map.marker.coords.longitude
+            };
 
             this.NewEvent.post().then(
                 (event) => this.onEventSubmitSuccess(event),
@@ -89,13 +168,16 @@
 
     }
 
-    CreateEventController.$inject = ['NewEvent', 'EventList', '$state', '$openFB', '$ionicPlatform'];
+    CreateEventController.$inject = ['NewEvent', 'EventList', '$state', '$openFB', '$ionicPlatform', 'uiGmapGoogleMapApi'];
 
     angular.module('fomo.events.create', [
             'fomo.events.Event',
             'ngOpenFB',
             'fomo.select'
         ])
-        .controller('CreateEventController', CreateEventController);
+        .controller('CreateEventController', CreateEventController)
+        .run(['$templateCache', function ($templateCache) {
+            $templateCache.put('searchbox.tpl.html', '<input id="pac-input" class="pac-controls" type="text" placeholder="Search" ng-model="ngModel">');
+        }]);
 
 })();

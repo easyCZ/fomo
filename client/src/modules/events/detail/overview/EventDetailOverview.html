@@ -13,14 +13,15 @@
     </p>
 
     <div class="map">
-        <ui-gmap-google-map
+        <ui-gmap-google-map ng-if="overviewCtrl.map.marker"
                 center="overviewCtrl.map.center"
                 draggable="true"
                 id="myGoogleMap"
-                zoom="overviewCtrl.map.zoom"
+                zoom="17"
                 options="overviewCtrl.map.options"
                 control="overviewCtrl.map.control"
                 events="overviewCtrl.map.events">
+            <ui-gmap-marker coords="overviewCtrl.map.marker.coords" idkey="overviewCtrl.map.marker.id"></ui-gmap-marker>
         </ui-gmap-google-map>
     </div>
 </div>

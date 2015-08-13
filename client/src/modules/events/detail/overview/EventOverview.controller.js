@@ -5,6 +5,17 @@
         constructor($scope, $stateParams, EventList, $ionicPlatform, uiGmapGoogleMapApi) {
             EventList.get($stateParams.eventId).then((e) => {
                 this.event = e;
+                if (this.map) {
+                    this.map.center = e.location;
+                    this.map.marker = {
+                        id: 0,
+                        coords: {
+                            latitude: e.location.latitude,
+                            longitude: e.location.longitude
+                        }
+
+                    }
+                }
                 $scope.$apply(); // why is this necessary???
             });
             $ionicPlatform.onHardwareBackButton((e) => {
@@ -12,7 +23,6 @@
                 this.$scope.go('events.list');
                 e.stopPropagation();
             });
-
             uiGmapGoogleMapApi.then((maps) => {
                 this.map = {
                     center: {

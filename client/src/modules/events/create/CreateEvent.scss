@@ -32,7 +32,17 @@ form {
     }
   }
 
-  .optionList{
+  .angular-google-map, .angular-google-map-container {
+    height: 200px;
+    width: 100%;
+  }
+
+  #pac-input {
+    top: 10px !important;
+    left: 10px !important;
+  }
+
+  .optionList {
     position:absolute;
     width:100%;
     z-index:100;

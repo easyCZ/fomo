@@ -31,8 +31,8 @@
       uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyBPs1HkUn63_ZrexiZnDfKPDzbLbAt8_wo',
         v: '3.17',
-        sensor: true
-        // libraries: 'weather,geometry,visualization'
+        sensor: true,
+        libraries: 'places,weather,geometry,visualization'
       });
   };
   GoogleMapsConfig.$inject = ['uiGmapGoogleMapApiProvider'];

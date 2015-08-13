@@ -11,9 +11,18 @@
         <label class="item item-input" ng-class="{ 'has-errors' : eventForm.title.$invalid, 'no-errors' : eventForm.title.$valid}">
             <input type="text" name="title" placeholder="Event Title" ng-model="eventForm.newEvent.title" required>
         </label>
-        <label class="item item-input" ng-class="{ 'has-errors' : eventForm.location.$invalid, 'no-errors' : eventForm.location.$valid}">
-            <input type="text" name="location" placeholder="Location" ng-model="eventForm.newEvent.location.name" required>
-        </label>
+        <ui-gmap-google-map ng-if="create.map.marker"
+                            center="create.map.center"
+                            draggable="true"
+                            id="myGoogleMap"
+                            zoom="create.map.zoom"
+                            options="create.map.options"
+                            control="create.map.control"
+                            events="create.map.events">>
+            <ui-gmap-search-box options="create.searchbox.options" template="create.searchbox.template"
+                                events="create.searchbox.events" ng-model="searchModel.searchTerm"></ui-gmap-search-box>
+            <ui-gmap-marker coords="create.map.marker.coords" idkey="create.map.marker.id"></ui-gmap-marker>
+        </ui-gmap-google-map>
         <label class="item item-input item-select" ng-class="{ 'has-errors' : eventForm.day.$invalid, 'no-errors' : eventForm.day.$valid}">
             <div class="input-label">Day</div>
             <select ng-model="eventForm.newEvent.meta.day" name="day" ng-options="day as day for day in create.days" required></select>
@@ -36,9 +45,5 @@
             Submit
         </button>
     </form>
-
-    <div>DEV Payload:</div>
-    <pre>{{ eventForm.newEvent | json }}</pre>
-
   </ion-content>
 </ion-view>
