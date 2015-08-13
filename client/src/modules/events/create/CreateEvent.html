@@ -11,7 +11,7 @@
         <label class="item item-input" ng-class="{ 'has-errors' : eventForm.title.$invalid, 'no-errors' : eventForm.title.$valid}">
             <input type="text" name="title" placeholder="Event Title" ng-model="eventForm.newEvent.title" required>
         </label>
-        <ui-gmap-google-map ng-if="create.map.marker"
+        <ui-gmap-google-map
                             center="create.map.center"
                             draggable="true"
                             id="myGoogleMap"

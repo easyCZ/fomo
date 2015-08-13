@@ -5,6 +5,7 @@
             'fomo.events.routes',
             'fomo.events.list',
             'ngOpenFB',
+            'ngCordova',
             'fomo.select'
         ]);
 })();

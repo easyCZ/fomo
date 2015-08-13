@@ -2,7 +2,7 @@
 
     class CreateEventController {
 
-        constructor(NewEvent, EventList, $state, $openFB, $ionicPlatform, uiGmapGoogleMapApi) {
+        constructor(NewEvent, EventList, $state, $openFB, $ionicPlatform, uiGmapGoogleMapApi, $cordovaGeolocation) {
             this.NewEvent = NewEvent;
             this.EventList = EventList;
             this.$state = $state;
@@ -80,8 +80,9 @@
                 }
             };
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
+            $cordovaGeolocation
+                .getCurrentPosition({timeout: 10000, enableHighAccuracy: false})
+                .then(function(position) {
                     self.map.center = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
@@ -90,9 +91,7 @@
                         id: 0,
                         coords: self.map.center
                     }
-
                 });
-            }
 
             uiGmapGoogleMapApi.then((maps) => {
                 this.map = {
@@ -168,12 +167,14 @@
 
     }
 
-    CreateEventController.$inject = ['NewEvent', 'EventList', '$state', '$openFB', '$ionicPlatform', 'uiGmapGoogleMapApi'];
+    CreateEventController.$inject = ['NewEvent', 'EventList', '$state', '$openFB', '$ionicPlatform', 'uiGmapGoogleMapApi', '$cordovaGeolocation'];
 
     angular.module('fomo.events.create', [
+            'ngCordova',
             'fomo.events.Event',
             'ngOpenFB',
-            'fomo.select'
+            'fomo.select',
+            'uiGmapgoogle-maps'
         ])
         .controller('CreateEventController', CreateEventController)
         .run(['$templateCache', function ($templateCache) {
