@@ -1,4 +1,4 @@
-<img class="event-img" src="img/golden.png">
+<img class="event-img" ng-src="{{::overviewCtrl.event.img}}">
 
 <div class="padding">
 
@@ -13,6 +13,7 @@
     </p>
 
     <div class="map">
+        <p>Location: {{::overviewCtrl.event.location.name}}</p>
         <ui-gmap-google-map ng-if="overviewCtrl.map.marker"
                 center="overviewCtrl.map.center"
                 draggable="true"

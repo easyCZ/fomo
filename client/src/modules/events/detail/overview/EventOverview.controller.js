@@ -6,14 +6,26 @@
             EventList.get($stateParams.eventId).then((e) => {
                 this.event = e;
                 if (this.map) {
-                    this.map.center = e.location;
-                    this.map.marker = {
-                        id: 0,
-                        coords: {
-                            latitude: e.location.latitude,
-                            longitude: e.location.longitude
-                        }
+                    if (e.type === 'fb') {
+                        this.map.center = e.location.location;
+                        this.map.marker = {
+                            id: 0,
+                            coords: {
+                                latitude: e.location.location.latitude,
+                                longitude: e.location.location.longitude
+                            }
 
+                        }
+                    } else {
+                        this.map.center = e.location;
+                        this.map.marker = {
+                            id: 0,
+                            coords: {
+                                latitude: e.location.latitude,
+                                longitude: e.location.longitude
+                            }
+
+                        }
                     }
                 }
                 $scope.$apply(); // why is this necessary???

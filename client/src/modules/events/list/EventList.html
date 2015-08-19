@@ -21,7 +21,7 @@
                 You ain't got nuttin' to do bro
             </div>
             <ion-item ng-repeat="item in eventsCtrl.EventList.events" class="item item-avatar" ui-sref="events.detail.overview({eventId: item.id, event: item})">
-                <img ng-src="{{ item.img }}">
+                <img ng-src="{{ item.img }}" class="event-thumbnail">
                     <h2>{{::item.title}}</h2>
                     <p>{{::item.location.name}}</p>
                 <ion-option-button class="button-balanced" ng-click="share(item)">

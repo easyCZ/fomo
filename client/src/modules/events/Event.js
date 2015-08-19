@@ -9,18 +9,44 @@
     angular
         .module('fomo.events.Event', ['restangular'])
         .factory('Event', Event)
-        .factory('EventList', ['Event', (Event) => {
+        .factory('EventList', ['Event', '$openFB', (Event, $openFB) => {
             class EventList {
                 constructor() {
                 }
 
                 getList() {
                     var self = this;
-                    return Event.getList().then((events) => {
-                        self.events = events;
-                        return events[0];
-                    }, (error) => {
-                        self.error = error;
+                    return new Promise((resolve, reject) => {
+                        Event.getList().then((events) => {
+                            self.events = events;
+                        }, (error) => {
+                            self.error = error;
+                        }).then(function() {
+                            $openFB.api({
+                                path: '/v2.4/search',
+                                params: {
+                                    fields: 'name,cover,description,location,start_time',
+                                    type: 'event',
+                                    limit: 100,
+                                    since: 'now',
+                                    until: 'next year',
+                                    q: 'a'
+                                }
+                            }, (error, result) => {
+                                result.data.data.forEach((event) => {
+                                    event.cover = event.cover || {};
+                                    self.events.push({
+                                        img: event.cover.source,
+                                        title: event.name,
+                                        location: event.place,
+                                        id: event.id,
+                                        description: event.description,
+                                        type: 'fb'
+                                    });
+                                });
+                                resolve(self.events)
+                            })
+                        });
                     });
                 }
 

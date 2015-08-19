@@ -8,7 +8,9 @@
     RestangularProvider.addResponseInterceptor((data, operation, what, url, response, deferred) => {
       return JSOG.decode(data);
     });
-    RestangularProvider.setDefaultHeaders({ fbAuth: () => { return window.localStorage.fbAuth; } });
+    RestangularProvider.setDefaultHeaders({ fbAuth: () => {
+      return window.localStorage.fbAuth;
+    } });
   };
   ApiConfig.$inject = ['RestangularProvider', 'config'];
 

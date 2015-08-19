@@ -1,5 +1,4 @@
 .EventDetail {
-
     .scroll {
         height: 100%;
     }
@@ -22,8 +21,12 @@
     }
 
     .angular-google-map, .angular-google-map-container {
-        height: 450px;
+        height: 400px;
         width: 100%;
     }
 
+    .padding {
+        height: 500px;
+        overflow: scroll;
+    }
 }

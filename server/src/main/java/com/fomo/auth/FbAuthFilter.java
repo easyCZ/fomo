@@ -27,9 +27,10 @@ public class FbAuthFilter implements ContainerRequestFilter {
                                                                 .build(new CacheLoader<String, FbUser>() {
                                                                     @Override
                                                                     public FbUser load(String key) throws Exception {
-                                                                        return client.target("https://graph.facebook.com/me?access_token=" + key)
+                                                                        FbUser user = client.target("https://graph.facebook.com/me?access_token=" + key)
                                                                                             .request()
                                                                                             .get(FbUser.class);
+                                                                        return user;
                                                                     }
                                                                 });
 
@@ -47,8 +48,8 @@ public class FbAuthFilter implements ContainerRequestFilter {
                 requestContext.setProperty(FB_USER_CTX_KEY, fbUser);
                 return; // They've successfully authenticated
             } catch (Exception e) {
+                log.error("User failed to auth - try again...");
             }
-            return;
         }
         log.info("User failed to login for some reason");
         unauthorized(requestContext);
