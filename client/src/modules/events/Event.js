@@ -33,17 +33,19 @@
                                     q: 'a'
                                 }
                             }, (error, result) => {
-                                result.data.data.forEach((event) => {
-                                    event.cover = event.cover || {};
-                                    self.events.push({
-                                        img: event.cover.source,
-                                        title: event.name,
-                                        location: event.place,
-                                        id: event.id,
-                                        description: event.description,
-                                        type: 'fb'
+                                if (result && result.data && result.data.data) {
+                                    result.data.data.forEach((event) => {
+                                        event.cover = event.cover || {};
+                                        self.events.push({
+                                            img: event.cover.source,
+                                            title: event.name,
+                                            location: event.place,
+                                            id: event.id,
+                                            description: event.description,
+                                            type: 'fb'
+                                        });
                                     });
-                                });
+                                }
                                 resolve(self.events)
                             })
                         });
