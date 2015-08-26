@@ -12,13 +12,16 @@
         .factory('EventList', ['Event', '$openFB', (Event, $openFB) => {
             class EventList {
                 constructor() {
+                    this.events
                 }
 
                 getList() {
                     var self = this;
                     return new Promise((resolve, reject) => {
                         Event.getList().then((events) => {
-                            self.events = events;
+                            events.forEach((e) => {
+                                self.events.push(e);
+                            });
                         }, (error) => {
                             self.error = error;
                         }).then(function() {
