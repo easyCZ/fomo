@@ -1,10 +1,9 @@
 package com.fomo.db.dao;
 
-import com.fomo.auth.FbUser;
-import com.fomo.builders.PeopleBuilder;
 import com.fomo.db.Event;
 import com.fomo.db.Person;
 import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import javax.ws.rs.NotFoundException;
@@ -24,7 +23,7 @@ public class EventDao extends AbstractDAO<Event> {
         Set<Person> persistedPeople = new HashSet<>();
         for (Person person : event.getPeople()) {
             if (person.getId() == 0) {
-                Person persistedPerson = personDao.get(person.getFbId());
+                Person persistedPerson = personDao.get(person.getId());
                 if (persistedPerson == null) {
                     persistedPerson = personDao.create(person);
                 }
@@ -35,13 +34,17 @@ public class EventDao extends AbstractDAO<Event> {
         return persist(event);
     }
 
-    public List<Event> getAll(FbUser user) {
+    public List<Event> getAll(Person user) {
         return list(currentSession().createQuery("from Event"));
     }
 
     public Event get(long id) {
         Event e = super.get(Long.valueOf(id));
-        if (e == null) throw new NotFoundException("Resource does not exist");
         return e;
+    }
+
+    public Event get(String fbId) {
+        Query query = currentSession().createQuery("from Event e where e.fbId = :fbId");
+        return super.uniqueResult(query.setParameter("fbId", fbId));
     }
 }

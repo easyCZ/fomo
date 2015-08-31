@@ -1,5 +1,7 @@
 package com.fomo.builders;
 
+import com.fomo.db.Event;
+import com.fomo.db.Person;
 import com.fomo.db.Response;
 import com.google.common.collect.Sets;
 
@@ -9,6 +11,13 @@ public class ResponseBuilder extends ChildBuilder<PeopleBuilder> {
     public ResponseBuilder(PeopleBuilder parent) {
         super(parent);
         this.response = new Response();
+    }
+
+    public ResponseBuilder(Event e, Person person) {
+        this((PeopleBuilder) null);
+        this.response.setEvent(e);
+        person.getResponses().add(this.response);
+        this.response.setResponder(person);
     }
 
     public ResponseBuilder going() {
@@ -39,5 +48,9 @@ public class ResponseBuilder extends ChildBuilder<PeopleBuilder> {
         parentBuilder.parentBuilder.event.getResponses().add(response);
         response.setEvent(parentBuilder.parentBuilder.event);
         return super.build();
+    }
+
+    public Response buildResponse() {
+        return this.response;
     }
 }

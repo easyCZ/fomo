@@ -18,8 +18,18 @@ public class PeopleBuilder extends ChildBuilder<EventBuilder> {
         this.person = person;
     }
 
+    public PeopleBuilder() {
+        super(null);
+        this.person = new Person();
+    }
+
     public PeopleBuilder name(String name) {
         this.person.setName(name);
+        return this;
+    }
+
+    public PeopleBuilder fbId(String fbId) {
+        this.person.setFbId(fbId);
         return this;
     }
 
@@ -35,5 +45,9 @@ public class PeopleBuilder extends ChildBuilder<EventBuilder> {
         }
         person.getEvents().add(parentBuilder.event);
         return super.build();
+    }
+
+    public Person buildPerson() {
+        return person;
     }
 }

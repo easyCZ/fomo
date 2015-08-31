@@ -74,9 +74,12 @@ public class FomoApp extends Application<Config> {
 
     @Override
     public void run(Config configuration, Environment environment) {
-        environment.jersey().register(new EventResourse(new EventDao(hibernateBundle.getSessionFactory())));
-        environment.jersey().register(new GroupResource(new GroupDao(hibernateBundle.getSessionFactory())));
-        environment.jersey().register(new PersonResource(new PersonDao(hibernateBundle.getSessionFactory())));
+        PersonDao persondao = new PersonDao(hibernateBundle.getSessionFactory());
+        EventDao eventDao = new EventDao(hibernateBundle.getSessionFactory());
+        environment.jersey().register(new EventResourse(eventDao, persondao));
+        GroupDao groupDao = new GroupDao(hibernateBundle.getSessionFactory());
+        environment.jersey().register(new GroupResource(groupDao));
+        environment.jersey().register(new PersonResource(persondao));
         environment.getObjectMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         environment.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         environment.getObjectMapper().setDateFormat(SimpleDateFormat.getDateInstance());
@@ -93,7 +96,7 @@ public class FomoApp extends Application<Config> {
             cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
         } else {
             // TODO: I'm definitely going to regret doing it like this...
-            environment.jersey().register(new FbAuthFilter());
+            environment.jersey().register(new FbAuthFilter(hibernateBundle.getSessionFactory()));
             environment.jersey().register(FbAuthFilter.USER_BINDER);
         }
     }

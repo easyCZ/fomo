@@ -1,5 +1,8 @@
 package com.fomo.auth;
 
+import com.fomo.builders.PeopleBuilder;
+import com.fomo.db.Person;
+
 public final class FbUser {
     private String id;
     private String email;
@@ -72,5 +75,12 @@ public final class FbUser {
                 ", updated_time='" + updated_time + '\'' +
                 ", verified='" + verified + '\'' +
                 '}';
+    }
+
+    public Person toPerson() {
+        return new PeopleBuilder()
+                        .name(name)
+                        .fbId(id)
+                        .buildPerson();
     }
 }

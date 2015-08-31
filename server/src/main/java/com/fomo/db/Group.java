@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Group {
             joinColumns =        @JoinColumn(name = "group_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "person_id", nullable = false, updatable = false))
     @Fetch(FetchMode.SELECT)
-    private Set<Person> people;
+    private Set<Person> people = new HashSet<>();
     @Column
     private String groupName;
 

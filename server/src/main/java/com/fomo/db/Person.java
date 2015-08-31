@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,12 +17,12 @@ public class Person {
     @Column
     private String name;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "people")
-    private Set<Event> events;
+    private Set<Event> events = new HashSet<>();
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "people")
-    private Set<Group> groups;
+    private Set<Group> groups = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn
-    private Set<Response> responses;
+    private Set<Response> responses = new HashSet<>();
     @Column
     private String fbId;
 

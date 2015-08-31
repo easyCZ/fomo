@@ -11,10 +11,7 @@ import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Entity
 @JsonIdentityInfo(generator=JSOGGenerator.class)
@@ -35,14 +32,19 @@ public class Event {
             joinColumns =        @JoinColumn(name = "event_id", nullable = false, updatable = false),
             inverseJoinColumns = @JoinColumn(name = "person_id", nullable = false, updatable = false))
     @Fetch(FetchMode.SELECT)
-    private Set<Person> people;
+    private Set<Person> people = new HashSet<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
-    private Set<Response> responses;
+    private Set<Response> responses = new HashSet<>();
     @Column
     private String title;
     @Column
+    @Lob
     private String description;
+    @Column
+    private String fbId;
+    @Column
+    private String img;
 
     public long getId() {
         return id;
@@ -106,6 +108,22 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public static EventBuilder create() {

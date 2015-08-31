@@ -9,7 +9,7 @@
     angular
         .module('fomo.events.Event', ['restangular'])
         .factory('Event', Event)
-        .factory('EventList', ['Event', '$openFB', (Event, $openFB) => {
+        .factory('EventList', ['Event', '$openFB', 'Restangular', (Event, $openFB, Restangular) => {
             class EventList {
                 constructor() {
                     this.events = [];
@@ -86,6 +86,11 @@
 
                 notGoingTo(e) {
                     this.events.splice(this.events.indexOf(e), 1);
+                    if (e.type === 'fb') {
+                        delete e.id;
+                        delete e.type;
+                    }
+                    Restangular.service('notGoing', Restangular.one('events')).post(e);
                 }
 
                 findEvent(id) {

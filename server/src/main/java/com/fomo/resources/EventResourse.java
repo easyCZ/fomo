@@ -1,15 +1,16 @@
 package com.fomo.resources;
 
-import com.fomo.auth.FbUser;
+import com.fomo.builders.ResponseBuilder;
 import com.fomo.db.Event;
+import com.fomo.db.Person;
 import com.fomo.db.dao.EventDao;
+import com.fomo.db.dao.PersonDao;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -19,16 +20,18 @@ import java.util.List;
 public class EventResourse {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventResourse.class);
     private final EventDao eventDao;
+    private final PersonDao personDao;
 
-    public EventResourse(EventDao eventDao) {
+    public EventResourse(EventDao eventDao, PersonDao personDao) {
         this.eventDao = eventDao;
+        this.personDao = personDao;
     }
 
     @POST
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Event createEvent(Event event, @Context FbUser user) {
+    public Event createEvent(Event event, @Context Person user) {
         return eventDao.create(event);
     }
 
@@ -45,14 +48,22 @@ public class EventResourse {
 
     @GET
     @UnitOfWork
-    public List<Event> getAllEvents(@Context FbUser user) {
+    public List<Event> getAllEvents(@Context Person user) {
         return eventDao.getAll(user);
     }
 
     @POST
     @UnitOfWork
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void notGoing(Event e) {
-        Syste
+    @Path("/notGoing")
+    public void notGoing(Event e, @Context Person user) {
+        Event event = eventDao.get(e.getId());
+        if (event == null) {
+            event = eventDao.get(e.getFbId());
+        }
+        if (event == null) {
+            e.getResponses().add(new ResponseBuilder(e, user).nahh().buildResponse());
+            eventDao.create(e);
+        }
+
     }
 }
