@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -47,4 +49,10 @@ public class EventResourse {
         return eventDao.getAll(user);
     }
 
+    @POST
+    @UnitOfWork
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void notGoing(Event e) {
+        Syste
+    }
 }

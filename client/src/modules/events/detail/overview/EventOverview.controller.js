@@ -6,7 +6,7 @@
             EventList.get($stateParams.eventId).then((e) => {
                 this.event = e;
                 if (this.map) {
-                    if (e.type === 'fb') {
+                    if (e.type === 'fb' && e.location) {
                         this.map.center = e.location.location;
                         this.map.marker = {
                             id: 0,

@@ -12,7 +12,7 @@
         .factory('EventList', ['Event', '$openFB', (Event, $openFB) => {
             class EventList {
                 constructor() {
-                    this.events
+                    this.events = [];
                 }
 
                 getList() {
@@ -21,6 +21,7 @@
                         Event.getList().then((events) => {
                             events.forEach((e) => {
                                 self.events.push(e);
+                                self.sort();
                             });
                         }, (error) => {
                             self.error = error;
@@ -45,8 +46,10 @@
                                             location: event.place,
                                             id: event.id,
                                             description: event.description,
-                                            type: 'fb'
+                                            type: 'fb',
+                                            startTime: event.start_time
                                         });
+                                        self.sort();
                                     });
                                 }
                                 resolve(self.events)
@@ -73,6 +76,18 @@
                             resolve(event);
                         });
                     }
+                }
+
+                sort() {
+                    this.events.sort((a, b) =>{
+                        a = new Date(a.startTime);
+                        b = new Date(b.startTime);
+                        return a>b ? 1 : a<b ? -1 : 0;
+                    });
+                }
+
+                notGoingTo(e) {
+                    this.events.splice(this.events.indexOf(e), 1);
                 }
             }
             return new EventList(Event);

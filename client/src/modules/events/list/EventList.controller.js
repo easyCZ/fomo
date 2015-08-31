@@ -15,7 +15,6 @@
                 }
             });
 
-            this.swipable = true;
             this.EventList.getList();
             var that = this;
             $timeout(()=> {
