@@ -85,12 +85,16 @@
                 }
 
                 notGoingTo(e) {
-                    this.events.splice(this.events.indexOf(e), 1);
                     if (e.type === 'fb') {
                         delete e.id;
                         delete e.type;
                     }
-                    Restangular.service('notGoing', Restangular.one('events')).post(e);
+                    Restangular.service('notGoing', Restangular.one('events')).post(e).then(() => {
+                            this.events.splice(this.events.indexOf(e), 1);
+                        },
+                        () => {
+                            console.log("errored attempting to respond to an event.")
+                        });
                 }
 
                 findEvent(id) {
@@ -104,6 +108,7 @@
                     if (!dupedEvent) {
                         this.events.push(e);
                     } else {
+
                         var indexOfDupe = this.events.indexOf(dupedEvent);
                         if (~indexOfDupe) {
                             this.events[indexOfDupe] = e;

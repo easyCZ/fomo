@@ -1,6 +1,7 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
@@ -13,8 +14,10 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn
+    @JsonIgnore
     private Person responder;
     @ManyToOne(fetch = FetchType.EAGER) @JoinColumn
+    @JsonIgnore
     private Event event;
     @Column
     private Boolean isAttending;

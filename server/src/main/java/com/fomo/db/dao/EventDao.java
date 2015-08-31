@@ -3,6 +3,7 @@ package com.fomo.db.dao;
 import com.fomo.db.Event;
 import com.fomo.db.Person;
 import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
@@ -35,7 +36,11 @@ public class EventDao extends AbstractDAO<Event> {
     }
 
     public List<Event> getAll(Person user) {
-        return list(currentSession().createQuery("from Event"));
+        List<Event> events = list(currentSession().createQuery("from Event"));
+        for (Event e : events) {
+            Hibernate.initialize(e.getResponses());
+        }
+        return events;
     }
 
     public Event get(long id) {
