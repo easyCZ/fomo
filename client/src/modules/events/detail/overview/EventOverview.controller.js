@@ -16,7 +16,7 @@
                             }
 
                         }
-                    } else {
+                    } else if (e.location) {
                         this.map.center = e.location;
                         this.map.marker = {
                             id: 0,

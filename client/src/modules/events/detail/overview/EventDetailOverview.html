@@ -5,14 +5,14 @@
     <h4>{{::overviewCtrl.event.title}}</h4>
 
     <p class="EventDetail-Info">
-        Jun-18-2015 | {{::overviewCtrl.event.people.length}} People are invited
+        {{::overviewCtrl.event.startTime}}| {{::overviewCtrl.event.people.length}} People are invited
     </p>
 
     <p>
         {{::overviewCtrl.event.description}}
     </p>
 
-    <div class="map">
+    <div class="map" ng-if="overviewCtrl.event.location">
         <p>Location: {{::overviewCtrl.event.location.name}}</p>
         <ui-gmap-google-map ng-if="overviewCtrl.map.marker"
                 center="overviewCtrl.map.center"

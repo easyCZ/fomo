@@ -20,7 +20,7 @@
                     return new Promise((resolve, reject) => {
                         Event.getList().then((events) => {
                             events.forEach((e) => {
-                                self.events.push(e);
+                                self.addEvent(e);
                                 self.sort();
                             });
                         }, (error) => {
@@ -40,11 +40,12 @@
                                 if (result && result.data && result.data.data) {
                                     result.data.data.forEach((event) => {
                                         event.cover = event.cover || {};
-                                        self.events.push({
+                                        self.addEvent({
                                             img: event.cover.source,
                                             title: event.name,
                                             location: event.place,
                                             id: event.id,
+                                            fbId: event.id,
                                             description: event.description,
                                             type: 'fb',
                                             startTime: event.start_time
@@ -60,14 +61,11 @@
 
                 get(id) {
                     var self = this;
-                    var findEvent = (id) => { return _.find(this.events, (e) => {
-                        return e.id == id;
-                    })};
-                    var event = findEvent(id);
+                    var event = this.findEvent(id);
                     if (!event) {
                         return new Promise((resolve) => {
                             Promise.resolve(self.getList()).then(() => {
-                                var returnEvent = findEvent(id);
+                                var returnEvent = self.findEvent(id);
                                 resolve(returnEvent);
                             });
                         });
@@ -88,6 +86,24 @@
 
                 notGoingTo(e) {
                     this.events.splice(this.events.indexOf(e), 1);
+                }
+
+                findEvent(id) {
+                    return _.find(this.events, (e) => {
+                        return e.id === id || e.fbId === id;
+                    });
+                }
+
+                addEvent(e) {
+                    var dupedEvent = this.findEvent(e.id || e.fbId);
+                    if (!dupedEvent) {
+                        this.events.push(e);
+                    } else {
+                        var indexOfDupe = this.events.indexOf(dupedEvent);
+                        if (~indexOfDupe) {
+                            this.events[indexOfDupe] = e;
+                        }
+                    }
                 }
             }
             return new EventList(Event);
