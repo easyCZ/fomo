@@ -102,7 +102,7 @@
                 }
 
                 findEvent(id) {
-                    return _findEvent(this.events, id);
+                    return this._findEvent(this.events, id);
                 }
 
                 amIAttending(e) {
