@@ -94,10 +94,9 @@ public class FomoApp extends Application<Config> {
             cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin,Cookie");
             cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
             cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-        } else {
-            // TODO: I'm definitely going to regret doing it like this...
-            environment.jersey().register(new FbAuthFilter(hibernateBundle.getSessionFactory()));
-            environment.jersey().register(FbAuthFilter.USER_BINDER);
         }
+        // TODO: I'm definitely going to regret doing it like this...
+        environment.jersey().register(new FbAuthFilter(hibernateBundle.getSessionFactory()));
+        environment.jersey().register(FbAuthFilter.USER_BINDER);
     }
 }
