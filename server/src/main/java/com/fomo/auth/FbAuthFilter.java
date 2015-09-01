@@ -2,6 +2,7 @@ package com.fomo.auth;
 
 import com.fomo.db.Person;
 import com.fomo.db.dao.PersonDao;
+import com.fomo.resources.EventResourse;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -51,9 +52,11 @@ public class FbAuthFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         // Handle nulls and
         String fbAuth = requestContext.getHeaders().getFirst("fbAuth");
+        log.info("FbAugh header: " + fbAuth);
         if (fbAuth != null) {
             try {
                 FbUser fbUser = userCache.get(fbAuth);
+                log.info("Fb user: " + fbUser);
                 Person person = getUser(fbUser);
                 requestContext.setProperty(FB_USER_CTX_KEY, person);
                 return; // They've successfully authenticated
@@ -67,7 +70,6 @@ public class FbAuthFilter implements ContainerRequestFilter {
 
     private Person getUser(FbUser fbUser) {
         Session session = sessionFactory.openSession();
-        log.info("Fb user: " + fbUser);
         Person person = personDao.get(session, fbUser.getId());
         person = person == null ? personDao.create(session, fbUser.toPerson()) : person;
         Hibernate.initialize(person.getResponses());

@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 @Path("/people")
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
-    private static final Logger log = LoggerFactory.getLogger(EventResourse.class);
+    private static final Logger log = LoggerFactory.getLogger(PersonResource.class);
     private final PersonDao dao;
 
     public PersonResource(PersonDao dao) {
