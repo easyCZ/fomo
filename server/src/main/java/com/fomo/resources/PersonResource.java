@@ -3,6 +3,8 @@ package com.fomo.resources;
 import com.fomo.db.Person;
 import com.fomo.db.dao.PersonDao;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.Response;
 @Path("/people")
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
+    private static final Logger log = LoggerFactory.getLogger(EventResourse.class);
     private final PersonDao dao;
 
     public PersonResource(PersonDao dao) {
@@ -33,6 +36,7 @@ public class PersonResource {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     public Person me(@Context Person me) {
+        log.info("Returning user: " + me);
         return me;
     }
 }
