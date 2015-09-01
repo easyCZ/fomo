@@ -7,18 +7,22 @@
     Event.$inject = ['Restangular'];
 
     angular
-        .module('fomo.events.Event', ['restangular'])
+        .module('fomo.events.Event', ['restangular', 'fomo.people.People'])
         .factory('Event', Event)
-        .factory('EventList', ['Event', '$openFB', 'Restangular', (Event, $openFB, Restangular) => {
+        .factory('EventList', ['Event', 'People', '$openFB', 'Restangular', (Event, People, $openFB, Restangular) => {
             class EventList {
                 constructor() {
                     this.events = [];
+                    this.notAttending = [];
                 }
 
                 getList() {
                     var self = this;
                     return new Promise((resolve, reject) => {
-                        Event.getList().then((events) => {
+                        People.one().get().then((me) => {
+                            self.me = me;
+                            return Event.getList();
+                        }).then((events) => {
                             events.forEach((e) => {
                                 self.addEvent(e);
                                 self.sort();
@@ -98,23 +102,40 @@
                 }
 
                 findEvent(id) {
-                    return _.find(this.events, (e) => {
+                    return _findEvent(this.events, id);
+                }
+
+                amIAttending(e) {
+                    var response = _.find(e.responses, (r) => { return r.responder.id === this.me.id; });
+                    return !response || response.isAttending;
+                }
+
+                addEvent(e) {
+                    if (this.amIAttending(e) && !this._findEvent(this.notAttending, e.id || e.fbId)) {
+                        this._addEvent(this.events, e);
+                    } else {
+                        this._addEvent(this.notAttending, e);
+                    }
+                }
+
+                _addEvent(list, e) {
+                    var dupedEvent = this._findEvent(list, e.id || e.fbId);
+                    if (!dupedEvent) {
+                        list.push(e);
+                    } else {
+                        var indexOfDupe = list.indexOf(dupedEvent);
+                        if (~indexOfDupe) {
+                            list[indexOfDupe] = e;
+                        }
+                    }
+                }
+
+                _findEvent(list, id) {
+                    return _.find(list, (e) => {
                         return e.id === id || e.fbId === id;
                     });
                 }
 
-                addEvent(e) {
-                    var dupedEvent = this.findEvent(e.id || e.fbId);
-                    if (!dupedEvent) {
-                        this.events.push(e);
-                    } else {
-
-                        var indexOfDupe = this.events.indexOf(dupedEvent);
-                        if (~indexOfDupe) {
-                            this.events[indexOfDupe] = e;
-                        }
-                    }
-                }
             }
             return new EventList(Event);
         }]);

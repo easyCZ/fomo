@@ -1,6 +1,7 @@
 package com.fomo.db;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
@@ -22,8 +23,9 @@ public class Person {
     private Set<Group> groups = new HashSet<>();
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn
+    @JsonIgnore
     private Set<Response> responses = new HashSet<>();
-    @Column
+    @Column(unique = true)
     private String fbId;
 
     public Person() {}
@@ -70,5 +72,17 @@ public class Person {
 
     public long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", events=" + events +
+                ", groups=" + groups +
+                ", responses=" + responses +
+                ", fbId='" + fbId + '\'' +
+                '}';
     }
 }

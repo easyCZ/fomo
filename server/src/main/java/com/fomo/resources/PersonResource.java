@@ -5,6 +5,7 @@ import com.fomo.db.dao.PersonDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,5 +27,12 @@ public class PersonResource {
             dao.create(person);
         }
         return Response.ok().build();
+    }
+
+    @GET
+    @UnitOfWork
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Person me(@Context Person me) {
+        return me;
     }
 }

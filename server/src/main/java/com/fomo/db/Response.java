@@ -13,8 +13,7 @@ public class Response {
     @Column @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn
     private Person responder;
     @ManyToOne(fetch = FetchType.EAGER) @JoinColumn
     @JsonIgnore

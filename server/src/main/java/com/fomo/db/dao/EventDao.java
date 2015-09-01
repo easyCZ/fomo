@@ -2,12 +2,12 @@ package com.fomo.db.dao;
 
 import com.fomo.db.Event;
 import com.fomo.db.Person;
+import com.fomo.db.Response;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-import javax.ws.rs.NotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
