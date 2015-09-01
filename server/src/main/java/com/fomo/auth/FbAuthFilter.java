@@ -67,6 +67,7 @@ public class FbAuthFilter implements ContainerRequestFilter {
 
     private Person getUser(FbUser fbUser) {
         Session session = sessionFactory.openSession();
+        log.info("Fb user: " + fbUser);
         Person person = personDao.get(session, fbUser.getId());
         person = person == null ? personDao.create(session, fbUser.toPerson()) : person;
         Hibernate.initialize(person.getResponses());
