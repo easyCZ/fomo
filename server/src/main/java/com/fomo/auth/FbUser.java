@@ -20,6 +20,46 @@ public final class FbUser {
         return id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public String getUpdated_time() {
+        return updated_time;
+    }
+
+    public String getVerified() {
+        return verified;
+    }
+
     @Override
     public String toString() {
         return "FbUser{" +
