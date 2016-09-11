@@ -1,8 +1,10 @@
 package com.fomo.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fomo.builders.PeopleBuilder;
 import com.fomo.db.Person;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class FbUser {
     private String id;
     private String email;

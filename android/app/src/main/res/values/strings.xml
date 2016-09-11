@@ -1,0 +1,9 @@
+<resources>
+    <string name="facebook_app_id">885671584822805</string>
+    <string name="app_name">Fomo</string>
+    <string name="edit_msg">Write msg here...</string>
+    <string name="btn_send">Send</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_display_message">My Message</string>
+    <string name="title_activity_events_list">EventsList</string>
+</resources>
